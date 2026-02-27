@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互式长征路线图 | 中国工农红军长征历史</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+</head>
+<body class="bg-light text-neutral overflow-x-hidden">
+    <!-- 顶部导航 -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-flag text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-white text-shadow">长征路线图</h1>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="text-white hover:text-secondary transition-colors text-shadow">概述</a>
+                <a href="#map" class="text-white hover:text-secondary transition-colors text-shadow">路线图</a>
+                <a href="#timeline" class="text-white hover:text-secondary transition-colors text-shadow">时间线</a>
+                <a href="#statistics" class="text-white hover:text-secondary transition-colors text-shadow">数据统计</a>
+            </div>
+            <button class="md:hidden text-white text-xl" id="menu-toggle">啊啊啊啊
+                <i class="fa fa-bars">X</i>
+            </button>
+        </nav>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral bg-opacity-95 absolute w-full">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#overview" class="text-white hover:text-secondary transition-colors py-2 border-b border-gray-700">概述</a>
+                <a href="#map" class="text-white hover:text-secondary transition-colors py-2 border-b border-gray-700">路线图</a>
+                <a href="#timeline" class="text-white hover:text-secondary transition-colors py-2 border-b border-gray-700">时间线</a>
+                <a href="#statistics" class="text-white hover:text-secondary transition-colors py-2">数据统计</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://picsum.photos/id/1015/1920/1080" alt="长征历史背景图" class="w-full h-full object-cover filter brightness-50">
+            <div class="absolute inset-0 bg-gradient-to-b from-neutral/60 to-neutral/80"></div>
+        </div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 text-shadow leading-tight">
+                中国工农红军长征
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+                1934年10月-1936年10月 | 二万五千里的战略转移 | 人类历史上的伟大奇迹
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#map" class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-md transition-all transform hover:scale-105">
+                    探索路线图
+                </a>
+                <a href="#timeline" class="bg-transparent border-2 border-white hover:border-secondary text-white hover:text-secondary font-semibold py-3 px-8 rounded-md transition-all">
+                    查看时间线
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white scroll-indicator">
+            <i class="fa fa-angle-down text-3xl"></i>
+        </div>
+    </section>
+
+    <!-- 概述部分 -->
+    <section id="overview" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">长征概述</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in" style="animation-delay: 0.1s;">
+                    <p class="text-lg mb-6 leading-relaxed">
+                        长征是1934年10月至1936年10月间，中国工农红军为摆脱国民党军队的包围追击，被迫实行的战略性转移。
+                        这是人类历史上的伟大奇迹，中央红军共进行了380余次战斗，攻占700多座县城，红军牺牲了营以上干部多达430余人，
+                        平均年龄不到30岁，共击溃国民党军数百个团，期间共经过14个省，翻越18座大山，跨过24条大河，
+                        走过荒草地，翻过雪山，行程约二万五千里。
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        1936年10月，红二、四方面军到达甘肃会宁地区，同红一方面军会师。红军三大主力会师，标志着长征的胜利结束。
+                        长征的胜利，是中国革命转危为安的关键，它锻造了伟大的长征精神，为中国革命保留了珍贵的火种。
+                    </p>
+                    <div class="flex items-center space-x-2 text-primary font-semibold">
+                        <span>了解更多历史背景</span>
+                        <i class="fa fa-long-arrow-right"></i>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 fade-in" style="animation-delay: 0.3s;">
+                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://picsum.photos/id/1019/600/400" alt="红军长征历史照片" class="w-full h-full object-cover">
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 mt-8">
+                        <img src="https://picsum.photos/id/1025/600/400" alt="红军长征途中照片" class="w-full h-full object-cover">
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://picsum.photos/id/1036/600/400" alt="红军长征历史场景" class="w-full h-full object-cover">
+                    </div>
+                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300 mt-8">
+                        <img src="https://picsum.photos/id/1040/600/400" alt="长征路线地形照片" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 时间线部分 -->
+    <section id="timeline" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">长征重要事件时间线</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">沿着时间轴，回顾长征中的关键历史时刻</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="relative">
+                <!-- 时间线中轴线 -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+                
+                <!-- 时间线项目 -->
+                <div class="timeline-container relative z-10">
+                    <!-- 1934年10月 - 出发 -->
+                    <div class="timeline-item mb-16 relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                <h3 class="text-xl font-bold mb-2">中央红军开始长征</h3>
+                                <p class="text-gray-600 mb-2">1934年10月</p>
+                                <p>中央红军主力五个军团及中央、军委机关和部队共8.6万余人，从瑞金、于都等地出发，被迫实行战略性转移，开始长征。</p>
+                            </div>
+                            <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+                                    <i class="fa fa-flag"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                <img src="https://picsum.photos/id/1019/600/400" alt="红军长征出发" class="rounded-lg shadow-md">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 1935年1月 - 遵义会议 -->
+                    <div class="timeline-item mb-16 relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+                                <img src="https://picsum.photos/id/1025/600/400" alt="遵义会议" class="rounded-lg shadow-md">
+                            </div>
+                            <div class="md:w-12 flex justify-center order-2">
+                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                <h3 class="text-xl font-bold mb-2">遵义会议召开</h3>
+                                <p class="text-gray-600 mb-2">1935年1月</p>
+                                <p>遵义会议确立了毛泽东在党中央和红军的领导地位，挽救了党、挽救了红军、挽救了中国革命，是中国共产党历史上一个生死攸关的转折点。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 1935年5月 - 巧渡金沙江 -->
+                    <div class="timeline-item mb-16 relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                <h3 class="text-xl font-bold mb-2">巧渡金沙江</h3>
+                                <p class="text-gray-600 mb-2">1935年5月</p>
+                                <p>中央红军主力利用7条木船，在7天7夜的时间里，全部渡过金沙江，摆脱了几十万国民党军的围追堵截，取得了战略转移中具有决定意义的胜利。</p>
+                            </div>
+                            <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+                                    <i class="fa fa-ship"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                <img src="https://picsum.photos/id/1036/600/400" alt="巧渡金沙江" class="rounded-lg shadow-md">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 1935年5月 - 强渡大渡河 飞夺泸定桥 -->
+                    <div class="timeline-item mb-16 relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+                                <img src="https://picsum.photos/id/1040/600/400" alt="飞夺泸定桥" class="rounded-lg shadow-md">
+                            </div>
+                            <div class="md:w-12 flex justify-center order-2">
+                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+                                    <i class="fa fa-balance-scale"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                <h3 class="text-xl font-bold mb-2">强渡大渡河 飞夺泸定桥</h3>
+                                <p class="text-gray-600 mb-2">1935年5月</p>
+                                <p>红军在安顺场强渡大渡河后，以2昼夜疾行240华里的速度，奔袭并攻克了泸定桥，打破了蒋介石妄图把红军变成第二个石达开的反革命迷梦。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 1935年6月-8月 - 过雪山草地 -->
+                    <div class="timeline-item mb-16 relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                <h3 class="text-xl font-bold mb-2">翻越夹金山 过草地</h3>
+                                <p class="text-gray-600 mb-2">1935年6月-8月</p>
+                                <p>红军攻克天险腊子口，翻越终年积雪的夹金山，与红四方面军会师。随后，红军又克服重重困难，穿越了人迹罕至的沼泽地，付出了巨大牺牲。</p>
+                            </div>
+                            <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+                                    <i class="fa fa-tree"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                <img src="https://picsum.photos/id/1043/600/400" alt="红军过雪山草地" class="rounded-lg shadow-md">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 1935年10月 - 吴起镇会师 -->
+                    <div class="timeline-item mb-16 relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+                                <img src="https://picsum.photos/id/1051/600/400" alt="吴起镇会师" class="rounded-lg shadow-md">
+                            </div>
+                            <div class="md:w-12 flex justify-center order-2">
+                                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                <h3 class="text-xl font-bold mb-2">中央红军到达吴起镇</h3>
+                                <p class="text-gray-600 mb-2">1935年10月</p>
+                                <p>中央红军到达陕北吴起镇，与陕北红军胜利会师。至此，中央红军的长征行程二万五千里，纵横十一个省，终于胜利结束。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 1936年10月 - 三大主力会师 -->
+                    <div class="timeline-item relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                <h3 class="text-xl font-bold mb-2">红军三大主力会师</h3>
+                                <p class="text-gray-600 mb-2">1936年10月</p>
+                                <p>红二、四方面军到达甘肃会宁地区，同红一方面军会师。红军三大主力会师，标志着长征的胜利结束，这是中国革命转危为安的关键。</p>
+                            </div>
+                            <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white z-10">
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                <img src="https://picsum.photos/id/1059/600/400" alt="红军三大主力会师" class="rounded-lg shadow-md">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据统计部分 -->
+    <section id="statistics" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">长征数据统计</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">用数据直观感受长征的艰辛与伟大</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <!-- 数据卡片1 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-road text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold text-primary mb-2">25000里</h3>
+                    <p class="text-gray-600">中央红军长征里程</p>
+                </div>
+                
+                <!-- 数据卡片2 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-map text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold text-primary mb-2">14个省</h3>
+                    <p class="text-gray-600">途经省份数量</p>
+                </div>
+                
+                <!-- 数据卡片3 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-tint text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold text-primary mb-2">24条河</h3>
+                    <p class="text-gray-600">渡过主要江河数量</p>
+                </div>
+                
+                <!-- 数据卡片4 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-mountain text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold text-primary mb-2">18座山</h3>
+                    <p class="text-gray-600">翻越主要山脉数量</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 战斗统计图表 -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-6">长征期间战斗统计</h3>
+                    <div class="h-80">
+                        <canvas id="battles-chart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- 红军兵力变化图表 -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-6">红军兵力变化</h3>
+                    <div class="h-80">
+                        <canvas id="troops-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 长征精神部分 -->
+    <section class="py-20 bg-primary/5">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">伟大的长征精神</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">长征精神是中国共产党人及其领导的人民军队革命风范的生动反映</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 精神内涵1 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-2 transition-transform">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-lightbulb-o text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">坚定的理想信念</h3>
+                    <p class="text-gray-600">
+                        革命理想高于天，红军战士在极端艰难的条件下，始终保持着对革命事业的坚定信念，
+                        这是长征胜利的精神支柱。
+                    </p>
+                </div>
+                
+                <!-- 精神内涵2 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-2 transition-transform">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-users text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">团结奋进的精神</h3>
+                    <p class="text-gray-600">
+                        红军各部队之间团结协作、互助友爱，官兵一致、同甘共苦，形成了无坚不摧的强大力量。
+                    </p>
+                </div>
+                
+                <!-- 精神内涵3 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-2 transition-transform">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-shield text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">不怕牺牲的勇气</h3>
+                    <p class="text-gray-600">
+                        面对敌人的围追堵截和恶劣的自然环境，红军战士表现出了不怕牺牲、敢于胜利的英雄气概。
+                    </p>
+                </div>
+                
+                <!-- 精神内涵4 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-2 transition-transform">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-compass text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">实事求是的态度</h3>
+                    <p class="text-gray-600">
+                        遵义会议确立了实事求是的思想路线，红军根据实际情况不断调整战略战术，
+                        才能够摆脱困境，走向胜利。
+                    </p>
+                </div>
+                
+                <!-- 精神内涵5 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-2 transition-transform">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-heart text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">军民鱼水情深</h3>
+                    <p class="text-gray-600">
+                        红军始终维护人民利益，得到了各族人民的支持和拥护，这是长征胜利的重要保障。
+                    </p>
+                </div>
+                
+                <!-- 精神内涵6 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:-translate-y-2 transition-transform">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-rocket text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">勇于创新的精神</h3>
+                    <p class="text-gray-600">
+                        面对前所未有的挑战，红军创造性地解决了一系列军事、政治和后勤问题，
+                        展现了非凡的创新能力。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fa fa-flag text-primary text-2xl"></i>
+                        <h3 class="text-xl font-bold">长征路线图</h3>
+                    </div>
+                    <p class="text-gray-400">
+                        交互式长征路线图旨在通过现代数字技术，生动展示中国工农红军长征的伟大历程，
+                        传承和弘扬伟大的长征精神。
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速导航</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#overview" class="text-gray-400 hover:text-primary transition-colors">长征概述</a></li>
+                        <li><a href="#map" class="text-gray-400 hover:text-primary transition-colors">路线地图</a></li>
+                        <li><a href="#timeline" class="text-gray-400 hover:text-primary transition-colors">历史时间线</a></li>
+                        <li><a href="#statistics" class="text-gray-400 hover:text-primary transition-colors">数据统计</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">相关资源</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">长征历史文献</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">历史照片集</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">长征故事</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">研究文章</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i class="fa fa-envelope"></i>
+                            <span>contact@changzheng.com</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i class="fa fa-phone"></i>
+                            <span>+86 123 4567 8910</span>
+                        </li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-500">
+                <p>© 2023 交互式长征路线图 | 铭记历史 传承精神</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform translate-y-20 opacity-0 transition-all z-50">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-neutral', 'shadow-md');
+                navbar.classList.remove('bg-transparent');
+                backToTop.classList.remove('translate-y-20', 'opacity-0');
+                backToTop.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                navbar.classList.remove('bg-neutral', 'shadow-md');
+                navbar.classList.add('bg-transparent');
+                backToTop.classList.add('translate-y-20', 'opacity-0');
+                backToTop.classList.remove('translate-y-0', 'opacity-100');
+            }
+            
+            // 滚动动画
+            const fadeElements = document.querySelectorAll('.timeline-item, .fade-in');
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('fade-in');
+                }
+            });
+        });
+        
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // 关闭移动菜单（如果打开）
+                mobileMenu.classList.add('hidden');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 返回顶部
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 地图交互
+        const mapContainer = document.getElementById('map-container');
+        const zoomIn = document.getElementById('zoom-in');
+        const zoomOut = document.getElementById('zoom-out');
+        const resetMap = document.getElementById('reset-map');
+        let mapScale = 1;
+        
+        zoomIn.addEventListener('click', function() {
+            if (mapScale < 1.5) {
+                mapScale += 0.1;
+                mapContainer.style.transform = `scale(${mapScale})`;
+            }
+        });
+        
+        zoomOut.addEventListener('click', function() {
+            if (mapScale > 0.7) {
+                mapScale -= 0.1;
+                mapContainer.style.transform = `scale(${mapScale})`;
+            }
+        });
+        
+        resetMap.addEventListener('click', function() {
+            mapScale = 1;
+            mapContainer.style.transform = `scale(${mapScale})`;
+            mapContainer.scrollTo(mapContainer.offsetWidth / 2, mapContainer.offsetHeight / 2);
+        });
+        
+        // 地点数据
+        const locations = {
+            ruijin: {
+                title: "瑞金 - 长征出发地",
+                date: "1934年10月",
+                description: `
+                    <p class="mb-4">瑞金是中华苏维埃共和国临时中央政府所在地，1934年10月，中央红军主力被迫实行战略转移，从瑞金等地出发，开始长征。</p>
+                    <p>中央红军主力五个军团及中央、军委机关和部队共8.6万余人，分别从瑞金地区出发，被迫实行战略性转移，从而开始进行红军打败国民党的转折点。</p>
+                `,
+                image: "https://picsum.photos/id/1015/600/400"
+            },
+            zunyi: {
+                title: "遵义 - 遵义会议召开地",
+                date: "1935年1月",
+                description: `
+                    <p class="mb-4">遵义会议是指1935年1月中共中央政治局在贵州遵义召开的独立自主地解决中国革命问题的一次极其重要的扩大会议。</p>
+                    <p>这次会议是中国共产党第一次独立自主地运用马克思列宁主义基本原理解决自己的路线、方针和政策方面问题的会议。这次会议，在极端危急的历史关头，挽救了党，挽救了红军，挽救了中国革命，在中国共产党和红军的历史上，是一个生死攸关的转折点。</p>
+                `,
+                image: "https://picsum.photos/id/1025/600/400"
+            },
+            jinsha: {
+                title: "金沙江 - 巧渡金沙江",
+                date: "1935年5月",
+                description: `
+                    <p class="mb-4">1935年5月，中央红军主力利用7条木船，在7天7夜的时间里，全部渡过金沙江，摆脱了几十万国民党军的围追堵截。</p>
+                    <p>红军巧渡金沙江是中国工农红军战争史上以少胜多、灵活机动的著名战例。金沙江位于长江的上游，穿行在川滇边界的深山狭谷间，江面宽阔，水急浪大。红军主力渡过金沙江，彻底跳出了国民党军队的包围圈，取得了战略转移中具有决定意义的胜利。</p>
+                `,
+                image: "https://picsum.photos/id/1036/600/400"
+            },
+            luding: {
+                title: "泸定桥 - 飞夺泸定桥",
+                date: "1935年5月",
+                description: `
+                    <p class="mb-4">飞夺泸定桥，是中国工农红军长征中的一场重要战役，发生于1935年5月。</p>
+                    <p>中央红军部队在四川省中西部强渡大渡河成功，沿大渡河东岸北上，主力由安顺场沿大渡河西岸北上，红四团官兵在天下大雨的情况下，在崎岖陡峭的山路上跑步前进，一昼夜奔袭竟达240里，终于在5月29日凌晨6时许按时到达泸定桥西岸。第2连连长和22名突击队员沿着枪林弹雨和火墙密布的铁索踩着铁链夺下桥头，并与东岸部队合围占领了泸定桥。</p>
+                `,
+                image: "https://picsum.photos/id/1040/600/400"
+            },
+            snowmountain: {
+                title: "夹金山 - 翻越雪山",
+                date: "1935年6月",
+                description: `
+                    <p class="mb-4">夹金山位于四川省阿坝藏族羌族自治州小金县与宝兴县交界处，海拔4114米，是红军长征中翻越的第一座大雪山。</p>
+                    <p>1935年6月，中央红军先头部队翻越第一座大雪山——夹金山。夹金山终年积雪，空气稀薄，气候恶劣，没有道路，没有人烟。红军战士穿着单衣，踏着积雪，顶着寒风，向上攀登。许多战士因为缺氧和寒冷永远留在了雪山上，但红军官兵以坚定的信念和顽强的意志，终于征服了这座雪山。</p>
+                `,
+                image: "https://picsum.photos/id/1043/600/400"
+            },
+            grassland: {
+                title: "松潘草地 - 过草地",
+                date: "1935年8月",
+                description: `
+                    <p class="mb-4">松潘草地位于四川省阿坝藏族羌族自治州北部，是青藏高原与四川盆地的过渡地带，海拔3500米以上，地势低洼，积水严重，水草盘根错节，形成大片沼泽。</p>
+                    <p>1935年8月，红军开始过草地。草地气候恶劣，昼夜温差大，荒无人烟，没有道路。红军战士们踩着草甸，深一脚浅一脚地前进，许多人陷入沼泽牺牲。粮食极度缺乏，战士们不得不煮皮带、吃草根充饥。经过十几天的艰苦跋涉，红军终于走出了草地，创造了人类历史上的又一个奇迹。</p>
+                `,
+                image: "https://picsum.photos/id/1047/600/400"
+            },
+            wuqi: {
+                title: "吴起镇 - 中央红军长征胜利终点",
+                date: "1935年10月",
+                description: `
+                    <p class="mb-4">吴起镇位于陕西省延安市吴起县，1935年10月，中央红军到达这里，与陕北红军胜利会师。</p>
+                    <p>1935年10月19日，中共中央率领中央红军经过二万五千里长征，到达陕北吴起镇，进入西北苏区，从而胜利地结束了中央红军的长征。随后，中央红军在吴起镇击退了国民党军队的追兵，取得了"切尾巴"战斗的胜利。吴起镇会师标志着中央红军长征的结束，为中国革命保留了珍贵的火种。</p>
+                `,
+                image: "https://picsum.photos/id/1051/600/400"
+            }
+        };
+        
+        // 地图标记点击事件
+        const mapMarkers = document.querySelectorAll('.map-marker');
+        const locationTitle = document.getElementById('location-title');
+        const locationDate = document.getElementById('location-date');
+        const locationDescription = document.getElementById('location-description');
+        const locationImage = document.getElementById('location-image');
+        
+        mapMarkers.forEach(marker => {
+            marker.addEventListener('click', function() {
+                const locationId = this.getAttribute('data-location');
+                const location = locations[locationId];
+                
+                if (location) {
+                    // 更新详情内容
+                    locationTitle.textContent = location.title;
+                    locationDate.innerHTML = `<i class="fa fa-calendar mr-2"></i>${location.date}`;
+                    locationDescription.innerHTML = location.description;
+                    locationImage.src = location.image;
+                    locationImage.alt = location.title;
+                    
+                    // 添加动画效果
+                    locationTitle.classList.add('scale-in');
+                    locationDescription.classList.add('scale-in');
+                    locationImage.classList.add('scale-in');
+                    
+                    setTimeout(() => {
+                        locationTitle.classList.remove('scale-in');
+                        locationDescription.classList.remove('scale-in');
+                        locationImage.classList.remove('scale-in');
+                    }, 500);
+                    
+                    // 滚动到详情区域（移动端）
+                    if (window.innerWidth < 768) {
+                        const detailsElement = document.getElementById('location-details');
+                        detailsElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+        
+        // 图表初始化
+        window.addEventListener('load', function() {
+            // 战斗统计图表
+            const battlesCtx = document.getElementById('battles-chart').getContext('2d');
+            new Chart(battlesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['1934年', '1935年', '1936年'],
+                    datasets: [{
+                        label: '主要战斗次数',
+                        data: [30, 280, 70],
+                        backgroundColor: [
+                            'rgba(196, 30, 58, 0.7)',
+                            'rgba(196, 30, 58, 0.7)',
+                            'rgba(196, 30, 58, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(196, 30, 58, 1)',
+                            'rgba(196, 30, 58, 1)',
+                            'rgba(196, 30, 58, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '战斗次数'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 红军兵力变化图表
+            const troopsCtx = document.getElementById('troops-chart').getContext('2d');
+            new Chart(troopsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1934年10月', '1935年1月', '1935年6月', '1935年10月', '1936年10月'],
+                    datasets: [{
+                        label: '中央红军兵力（万人）',
+                        data: [8.6, 3, 2.5, 0.75, 0.75],
+                        fill: false,
+                        borderColor: 'rgba(196, 30, 58, 1)',
+                        tension: 0.1,
+                        pointBackgroundColor: 'rgba(196, 30, 58, 1)'
+                    }, {
+                        label: '红二方面军兵力（万人）',
+                        data: [0, 1.7, 1.7, 1.1, 1.1],
+                        fill: false,
+                        borderColor: 'rgba(212, 175, 55, 1)',
+                        tension: 0.1,
+                        pointBackgroundColor: 'rgba(212, 175, 55, 1)'
+                    }, {
+                        label: '红四方面军兵力（万人）',
+                        data: [0, 8, 8, 3.3, 3.3],
+                        fill: false,
+                        borderColor: 'rgba(46, 125, 50, 1)',
+                        tension: 0.1,
+                        pointBackgroundColor: 'rgba(46, 125, 50, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '兵力（万人）'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

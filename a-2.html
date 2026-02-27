@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>周恩来与长征 - 长征精神永放光芒</title>
+		<script src="js/jquery-3.7.1.min.js"></script>
+		<script src="js/tailwind.3.4.16.min.js"></script>
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet" />
+
+		<!-- tailwind config -->
+		<script src="js/tailwind.config.js"></script>
+		<link href="css/tailwind.page.css" rel="stylesheet" />
+
+		<style>
+			.circle-content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+			}
+
+			.circle-number {
+				font-size: 1.5rem;
+				font-weight: bold;
+				line-height: 1;
+				margin-bottom: 0.25rem;
+			}
+
+			.circle-text {
+				font-size: 0.7rem;
+				line-height: 1.1;
+				max-width: 80%;
+			}
+
+			.timeline-circle {
+				position: relative;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto;
+				z-index: 10;
+			}
+
+			.timeline-circle-content {
+				text-align: center;
+				color: white;
+				font-weight: bold;
+			}
+
+			.timeline-circle .year {
+				font-size: 1.2rem;
+				line-height: 1;
+			}
+
+			.timeline-circle .month {
+				font-size: 0.8rem;
+				line-height: 1;
+			}
+
+			.stats-circle {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto 1rem;
+			}
+
+			/* 返回按钮样式 */
+			.back-button {
+				position: fixed;
+				bottom: 30px;
+				right: 30px;
+				z-index: 100;
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, var(--primary), var(--secondary));
+				color: rgb(196 30 58 / 0.5);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+				transition: all 0.3s ease;
+				cursor: pointer;
+				border: none;
+				font-size: 1.2rem;
+			}
+
+			.back-button:hover {
+				transform: translateY(-3px) scale(1.05);
+				box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+			}
+
+			.back-button:active {
+				transform: translateY(-1px) scale(1.02);
+			}
+
+			/* 移动端适配 */
+			@media (max-width: 768px) {
+				.back-button {
+					bottom: 20px;
+					right: 20px;
+					width: 50px;
+					height: 50px;
+					font-size: 1rem;
+				}
+			}
+		</style>
+	</head>
+	<body class="font-inter bg-light text-neutral scroll-smooth">
+		<!-- 导航栏 -->
+		<header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+		    <div class="bg-primary/90 backdrop-blur-md text-white shadow-lg">
+		        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+		            <a href="#blanner" class="flex items-center space-x-2">
+		                <i class="fa fa-bookmark text-secondary text-2xl"></i>
+		                <span class="text-xl font-bold">长征精神永放光芒</span>
+		            </a>
+
+		            <!-- 桌面导航 -->
+		            <nav class="hidden md:flex items-center space-x-8">
+		                <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+		                <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+		                <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+		                <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+		                <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+		                <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+		            </nav>
+
+		            <!-- 移动端菜单按钮 -->
+		            <button class="md:hidden text-white text-2xl" id="menuBtn">
+		                <i class="fa fa-bars"></i>
+		            </button>
+		        </div>
+		    </div>
+
+		    <!-- 移动端导航菜单 -->
+		    <div class="md:hidden bg-primary/95 backdrop-blur-md text-white shadow-lg transform -translate-y-full transition-transform duration-300"
+		        id="mobileMenu">
+		        <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+		            <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+		            <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+		            <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+		            <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+		            <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+		            <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+		            <a href="#"
+		                class="py-2 px-5 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/80 transition-colors text-center">党史学习教育</a>
+		        </div>
+		    </div>
+		</header>
+
+		<!-- 返回按钮 -->
+		<button class="back-button" id="backButton" title="返回上一页">
+			<i class="fa fa-arrow-left"></i>
+		</button>
+
+		<main class="pt-16">
+			<!-- 英雄区域 -->
+			<section id="heroes-banner"
+			    class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+			    <div class="absolute inset-0 z-0">
+			        <img src="img/titlebg.jpg" alt="长征精神永放光芒" class="w-full h-full object-cover">
+			        <div class="absolute inset-0 bg-dark/60"></div>
+			    </div>
+
+			    <div class="container mx-auto px-4 relative z-10 text-center">
+			        <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-6 text-shadow">周恩来与长征</h1>
+			        <p class="text-[clamp(1rem,2vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+						长征中的关键决策者与团结核心
+					</p>
+					<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+						<a href="#early-life"
+							class="px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/50 hover:-translate-y-1">早年经历</a>
+						<a href="#long-march"
+							class="px-8 py-4 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/90 transition-all shadow-lg hover:shadow-secondary/50 hover:-translate-y-1">长征贡献</a>
+						<a href="#legacy"
+							class="px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-white/90 transition-all shadow-lg hover:shadow-white/50 hover:-translate-y-1">历史遗产</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- 数据统计 -->
+			<section class="py-16 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+						<div class="text-center">
+							<div class="stats-circle bg-primary/10 text-primary">
+								<div class="circle-content">
+									<div class="circle-number">25,000</div>
+									<div class="circle-text">里长征路程</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">长征里程</h3>
+						</div>
+
+						<div class="text-center">
+							<div class="stats-circle bg-secondary/10 text-secondary">
+								<div class="circle-content">
+									<div class="circle-number">368</div>
+									<div class="circle-text">天行军时间</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">行军天数</h3>
+						</div>
+
+						<div class="text-center">
+							<div class="stats-circle bg-primary/10 text-primary">
+								<div class="circle-content">
+									<div class="circle-number">11</div>
+									<div class="circle-text">个省份跨越</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">途经省份</h3>
+						</div>
+
+						<div class="text-center">
+							<div class="stats-circle bg-secondary/10 text-secondary">
+								<div class="circle-content">
+									<div class="circle-number">600</div>
+									<div class="circle-text">余次重要战斗</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">重要战斗</h3>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 早年经历 -->
+			<section id="early-life" class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="flex flex-col lg:flex-row gap-12 items-center">
+						<div class="lg:w-1/3">
+							<div class="rounded-xl overflow-hidden shadow-2xl">
+								<img src="img/zhouenlai.jpg" alt="周恩来" class="w-full h-auto">
+							</div>
+							<div class="mt-6 text-center">
+								<h3 class="text-xl font-bold text-primary">周恩来 (1898-1976)</h3>
+								<p class="text-neutral/70">伟大的无产阶级革命家、政治家、军事家、外交家</p>
+							</div>
+						</div>
+
+						<div class="lg:w-2/3">
+							<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-6">早年革命经历</h2>
+							<div class="space-y-6">
+								<div class="bg-light p-6 rounded-lg">
+									<h3 class="font-bold text-primary text-xl mb-3">求学与思想形成</h3>
+									<p class="text-neutral/70">
+										周恩来1898年出生于江苏淮安。早年就读于天津南开学校，后留学日本和法国。在法国勤工俭学期间，他确立了共产主义信仰，参与创建旅欧中国少年共产党（后改名旅欧中国共产主义青年团）。
+									</p>
+								</div>
+
+								<div class="bg-light p-6 rounded-lg">
+									<h3 class="font-bold text-primary text-xl mb-3">参与建党与早期革命</h3>
+									<p class="text-neutral/70">
+										1921年，周恩来加入中国共产党，是党的早期重要领导人之一。1924年回国后，他先后担任中共广东区委委员长、黄埔军校政治部主任等职，参与领导了国民革命军东征和北伐战争。
+									</p>
+								</div>
+
+								<div class="bg-light p-6 rounded-lg">
+									<h3 class="font-bold text-primary text-xl mb-3">领导武装起义</h3>
+									<p class="text-neutral/70">
+										1927年，周恩来领导了南昌起义，打响了武装反抗国民党反动派的第一枪，是中国人民解放军的主要创建人之一。此后，他长期在上海、江西等地从事党的秘密工作和武装斗争。
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 长征贡献 -->
+			<section id="long-march" class="py-20 bg-neutral/5">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">周恩来在长征中的卓越贡献</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">团结核心与关键决策者：周恩来在长征中的重要作用</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">团结核心</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">遵义会议关键作用</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								在1935年1月的遵义会议上，周恩来发挥了关键作用。他支持毛泽东的正确主张，作了自我批评，主动承担了第五次反"围剿"失败的责任，促成了毛泽东在党和红军中领导地位的确立。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>支持毛泽东的正确军事路线</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>主动承担责任，维护党的团结</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>促成以毛泽东为核心的领导集体形成</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">组织领导</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">长征中的组织领导工作</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								周恩来作为中央革命军事委员会副主席、红军总政委，负责长征途中的大量组织协调工作，确保红军各部队的协同行动和后勤保障。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>协调各军团之间的行动配合</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>组织后勤保障和伤员安置</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>处理与少数民族地区的关系</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>负责情报收集和敌情分析</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">团结统一</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">维护党和红军的团结</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								长征途中，周恩来以其卓越的政治智慧和人格魅力，妥善处理了党和红军内部的各种矛盾，特别是在与张国焘分裂主义的斗争中发挥了重要作用。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>耐心细致地做思想工作，化解矛盾</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>坚持原则，反对分裂主义</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>团结大多数同志，维护中央权威</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">病中坚持</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">病中坚持工作</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								长征途中，周恩来身患重病，高烧不退，一度生命垂危。但他仍坚持工作，躺在担架上指挥部队行动，展现了共产党人钢铁般的意志和无私奉献精神。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>身患重病仍坚持工作</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>躺在担架上指挥部队行动</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>展现了共产党人的钢铁意志</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="mt-16 bg-white p-8 rounded-xl shadow-lg">
+						<h3 class="font-bold text-primary text-xl mb-6 text-center">周恩来长征工作特点</h3>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+							<div class="text-center p-4">
+								<div
+									class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">团结协作</div>
+									</div>
+								</div>
+								<h4 class="font-bold text-primary mb-2">团结协作精神</h4>
+								<p class="text-sm text-neutral/70">善于团结同志，协调各方，维护党和红军的团结统一</p>
+							</div>
+							<div class="text-center p-4">
+								<div
+									class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">组织才能</div>
+									</div>
+								</div>
+								<h4 class="font-bold text-primary mb-2">卓越组织才能</h4>
+								<p class="text-sm text-neutral/70">周密细致，有条不紊，确保长征各项工作的顺利进行</p>
+							</div>
+							<div class="text-center p-4">
+								<div
+									class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">无私奉献</div>
+									</div>
+								</div>
+								<h4 class="font-bold text-primary mb-2">无私奉献精神</h4>
+								<p class="text-sm text-neutral/70">以党和人民利益为重，个人安危置之度外</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 长征时间线 -->
+			<section class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">周恩来长征时间线</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">重要历史节点与关键决策</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="relative">
+						<!-- 时间线中轴线 -->
+						<div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+
+						<!-- 时间线项目 -->
+						<div class="timeline-container relative z-10 space-y-16">
+							<!-- 1934年10月 -->
+							<div class="timeline-item relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">参与长征决策</h3>
+										<p class="text-gray-600 mb-2 text-primary">1934年10月</p>
+										<p>作为中央革命军事委员会副主席，周恩来参与决策并组织中央红军主力从瑞金等地出发，开始长征。</p>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div class="timeline-circle bg-primary">
+											<div class="timeline-circle-content">
+												<div class="year">1934</div>
+												<div class="month">10月</div>
+											</div>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<div class="bg-light p-4 rounded-lg">
+											<h4 class="font-bold text-primary mb-2">关键角色</h4>
+											<p class="text-sm">周恩来负责长征的组织协调工作</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年1月 -->
+							<div class="timeline-item relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+										<div class="bg-light p-4 rounded-lg">
+											<h4 class="font-bold text-primary mb-2">历史转折</h4>
+											<p class="text-sm">周恩来在遵义会议中发挥了关键作用</p>
+										</div>
+									</div>
+									<div class="md:w-12 flex justify-center order-2">
+										<div class="timeline-circle bg-primary">
+											<div class="timeline-circle-content">
+												<div class="year">1935</div>
+												<div class="month">1月</div>
+											</div>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">遵义会议</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年1月</p>
+										<p>在遵义会议上，周恩来支持毛泽东的正确主张，主动承担责任，促成了毛泽东在党和红军中领导地位的确立。</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年8月 -->
+							<div class="timeline-item relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">维护团结统一</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年8月</p>
+										<p>周恩来在反对张国焘分裂主义的斗争中发挥了重要作用，坚持北上抗日方针，维护了党和红军的团结统一。</p>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div class="timeline-circle bg-secondary">
+											<div class="timeline-circle-content">
+												<div class="year">1935</div>
+												<div class="month">8月</div>
+											</div>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<div class="bg-light p-4 rounded-lg">
+											<h4 class="font-bold text-primary mb-2">政治智慧</h4>
+											<p class="text-sm">周恩来以其卓越的政治智慧化解党内矛盾</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 历史意义 -->
+			<section id="legacy" class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">周恩来长征精神的历史意义</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">团结核心与无私奉献：周恩来精神的当代价值</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+						<div>
+							<h3 class="font-bold text-primary text-xl mb-6">长征的历史意义</h3>
+							<div class="space-y-6">
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-primary">
+											<i class="fa fa-flag"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">维护团结统一</h4>
+										<p class="text-neutral/70">周恩来在长征中以其卓越的政治智慧和人格魅力，维护了党和红军的团结统一，为长征胜利提供了重要保障。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-primary">
+											<i class="fa fa-tasks"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">卓越组织才能</h4>
+										<p class="text-neutral/70">
+											周恩来在长征中展现了卓越的组织才能，确保了红军各部队的协同行动和后勤保障，为长征胜利作出了重要贡献。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-primary">
+											<i class="fa fa-users"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">支持正确路线</h4>
+										<p class="text-neutral/70">
+											在遵义会议上，周恩来支持毛泽东的正确主张，促成了毛泽东在党和红军中领导地位的确立，为中国革命走向胜利奠定了基础。</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<h3 class="font-bold text-primary text-xl mb-6">周恩来精神的当代价值</h3>
+							<div class="space-y-6">
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-secondary">
+											<i class="fa fa-heart"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">无私奉献精神</h4>
+										<p class="text-neutral/70">周恩来在长征中展现的无私奉献精神，是共产党人崇高品质的体现，是激励我们不断前进的强大动力。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-secondary">
+											<i class="fa fa-book text-2xl mb-1"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">团结协作精神</h4>
+										<p class="text-neutral/70">周恩来善于团结同志、协调各方的精神，对于今天我们加强党的建设、推进各项事业发展具有重要启示。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-secondary">
+											<i class="fa fa-balance-scale"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">实事求是作风</h4>
+										<p class="text-neutral/70">周恩来坚持真理、修正错误的实事求是作风，是我们党宝贵的精神财富，对于推进党的建设具有重要指导意义。</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mt-16 bg-primary/5 p-8 rounded-xl">
+						<h3 class="font-bold text-primary text-xl mb-6 text-center">周恩来论长征</h3>
+						<blockquote class="text-xl text-center text-neutral/80 italic max-w-4xl mx-auto">
+							"我们红军像经过了一场暴风雨的大树一样，虽然失去了一些枝叶，但保存下了树身和树根。懂吗？保存下了树身和树根！"
+						</blockquote>
+						<p class="text-center mt-6 text-neutral/70">—— 周恩来在长征胜利后的讲话</p>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- 页脚 -->
+		<footer class="bg-dark text-white py-12">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+					<div>
+						<h3 class="text-xl font-bold mb-4">长征精神永放光芒</h3>
+						<p class="text-gray-400">铭记光辉历史，传承红色基因，弘扬长征精神，走好新时代的长征路。</p>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">快速链接</h4>
+						<ul class="space-y-2">
+							<li><a href="index.html#history"
+									class="text-gray-400 hover:text-white transition-colors">历史全景</a></li>
+							<li><a href="a.html" class="text-gray-400 hover:text-white transition-colors">英雄人物</a></li>
+							<li><a href="index.html#spirit"
+									class="text-gray-400 hover:text-white transition-colors">精神解读</a></li>
+							<li><a href="index.html#education"
+									class="text-gray-400 hover:text-white transition-colors">红色育人</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">资源中心</h4>
+						<ul class="space-y-2">
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">长征文献</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">影像资料</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">研究论文</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">互动体验</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">联系我们</h4>
+						<ul class="space-y-2 text-gray-400">
+							<li class="flex items-center">
+								<i class="fa fa-envelope mr-2"></i>
+								<span>contact@changzheng.com</span>
+							</li>
+							<li class="flex items-center">
+								<i class="fa fa-phone mr-2"></i>
+								<span>+86 123 4567 8900</span>
+							</li>
+							<li class="flex items-center">
+								<i class="fa fa-map-marker mr-2"></i>
+								<span>北京市海淀区复兴路</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+					<p>&copy; 2023 长征精神永放光芒 - 版权所有</p>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// 导航栏滚动效果
+			window.addEventListener('scroll', function () {
+				const navbar = document.getElementById('navbar');
+				if (window.scrollY > 100) {
+					navbar.classList.add('bg-primary', 'shadow-lg');
+					navbar.classList.remove('bg-primary/90');
+				} else {
+					navbar.classList.remove('bg-primary', 'shadow-lg');
+					navbar.classList.add('bg-primary/90');
+				}
+			});
+
+			// 移动端菜单切换
+			document.getElementById('menuBtn').addEventListener('click', function () {
+				const mobileMenu = document.getElementById('mobileMenu');
+				if (mobileMenu.classList.contains('-translate-y-full')) {
+					mobileMenu.classList.remove('-translate-y-full');
+				} else {
+					mobileMenu.classList.add('-translate-y-full');
+				}
+			});
+
+			// 平滑滚动
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+			
+			// 返回上一页功能
+			document.getElementById('backButton').addEventListener('click', function() {
+				// 检查是否有上一页历史记录
+				if (document.referrer && document.referrer.includes(window.location.host)) {
+					// 如果是从本站的其他页面跳转过来的，返回上一页
+					window.history.back();
+				} else {
+					// 如果是直接访问的，跳转到英雄人物列表页面
+					window.location.href = 'a.html';
+				}
+			});
+		</script>
+	</body>
+</html>

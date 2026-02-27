@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>长征精神永放光芒 - 高校主题教育网站</title>
+		<script src="js/jquery-3.7.1.min.js"></script>
+		<script src="js/tailwind.3.4.16.min.js"></script>
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet" />
+
+		<!-- tailwind config -->
+		<script src="js/tailwind.config.js"></script>
+		<link href="css/tailwind.page.css" rel="stylesheet" />
+
+		<!-- Chart -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+		<style>
+			.scrollbar-hide {
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+			}
+
+			.scrollbar-hide::-webkit-scrollbar {
+				display: none;
+			}
+
+			.hover-scale {
+				transition: transform 0.3s ease;
+			}
+
+			.hover-scale:hover {
+				transform: translateY(-5px);
+			}
+
+			.line-clamp-3 {
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+
+			.hero-card {
+				transition: opacity 0.3s ease;
+			}
+		</style>
+	</head>
+	<body class="font-inter bg-light text-neutral scroll-smooth">
+		<!-- 导航栏 -->
+		<header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+			<div class="bg-primary/90 backdrop-blur-md text-white shadow-lg">
+				<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+					<a href="#blanner" class="flex items-center space-x-2">
+						<i class="fa fa-bookmark text-secondary text-2xl"></i>
+						<span class="text-xl font-bold">长征精神永放光芒</span>
+					</a>
+
+					<!-- 桌面导航 -->
+					<nav class="hidden md:flex items-center space-x-8">
+						<a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+						<a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+						<a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+						<a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+						<a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+						<a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+					</nav>
+
+					<!-- 移动端菜单按钮 -->
+					<button class="md:hidden text-white text-2xl" id="menuBtn">
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+			</div>
+
+			<!-- 移动端导航菜单 -->
+			<div class="md:hidden bg-primary/95 backdrop-blur-md text-white shadow-lg transform -translate-y-full transition-transform duration-300"
+				id="mobileMenu">
+				<div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+					<a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+					<a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+					<a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+					<a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+					<a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+					<a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+					<a href="#"
+						class="py-2 px-5 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/80 transition-colors text-center">党史学习教育</a>
+				</div>
+			</div>
+		</header>
+
+		<main class="pt-16">
+			<!-- 英雄区域 -->
+			<section id="heroes-banner"
+				class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+				<div class="absolute inset-0 z-0">
+					<img src="img/titlebg.jpg" alt="长征精神永放光芒" class="w-full h-full object-cover">
+					<div class="absolute inset-0 bg-dark/60"></div>
+				</div>
+
+				<div class="container mx-auto px-4 relative z-10 text-center">
+					<h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-6 text-shadow">长征英雄人物事迹</h1>
+					<p class="text-[clamp(1rem,2vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+						铭记英雄壮举，传承红色基因
+					</p>
+					<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+						<a href="#heroes-list"
+							class="px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/50 hover:-translate-y-1">浏览英雄事迹</a>
+						<a href="#heroes-timeline"
+							class="px-8 py-4 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/90 transition-all shadow-lg hover:shadow-secondary/50 hover:-translate-y-1">英雄时间线</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- 英雄分类与搜索 -->
+			<section id="heroes-filter" class="py-12 bg-white">
+			    <div class="container mx-auto px-4">
+			        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+			            <div class="w-full md:w-auto">
+			                <h2 class="text-2xl font-bold text-primary mb-4">筛选英雄</h2>
+			                <div class="flex flex-wrap gap-2">
+			                    <button
+			                        class="px-4 py-2 bg-primary text-white rounded-full text-sm font-medium transition-all hover:bg-primary/90 active-hero-category"
+			                        data-category="全部">全部</button>
+			                    <button
+			                        class="px-4 py-2 bg-gray-100 text-neutral rounded-full text-sm font-medium transition-all hover:bg-gray-200 hero-category"
+			                        data-category="军事将领">军事将领</button>
+			                    <button
+			                        class="px-4 py-2 bg-gray-100 text-neutral rounded-full text-sm font-medium transition-all hover:bg-gray-200 hero-category"
+			                        data-category="普通战士">普通战士</button>
+			                    <button
+			                        class="px-4 py-2 bg-gray-100 text-neutral rounded-full text-sm font-medium transition-all hover:bg-gray-200 hero-category"
+			                        data-category="女红军">女红军</button>
+			                    <button
+			                        class="px-4 py-2 bg-gray-100 text-neutral rounded-full text-sm font-medium transition-all hover:bg-gray-200 hero-category"
+			                        data-category="少数民族">少数民族</button>
+			                    <button
+			                        class="px-4 py-2 bg-gray-100 text-neutral rounded-full text-sm font-medium transition-all hover:bg-gray-200 hero-category"
+			                        data-category="青年英雄">青年英雄</button>
+			                </div>
+			            </div>
+			
+			            <div class="w-full md:w-1/3">
+			                <div class="relative">
+			                    <input type="text" id="hero-search" placeholder="搜索英雄姓名或事迹..."
+			                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+			                    <button id="search-button"
+			                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors">
+			                        <i class="fa fa-search"></i>
+			                    </button>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</section>
+
+			<!-- 英雄事迹列表 -->
+			<section id="heroes-list" class="py-20 bg-gray-100">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-3xl md:text-4xl font-bold text-red-800 mb-4">英雄人物事迹</h2>
+						<p class="text-lg text-gray-600 max-w-3xl mx-auto">铭记英雄壮举，传承红色基因</p>
+						<div class="w-20 h-1 bg-yellow-600 mx-auto mt-6"></div>
+					</div>
+
+					<!-- 添加导航箭头 -->
+					<div class="relative">
+						<!-- 左箭头 -->
+						<button id="heroes-prev"
+							class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full w-12 h-12 shadow-lg flex items-center justify-center hover:bg-red-800 hover:text-white transition-all">
+							<i class="fa fa-chevron-left"></i>
+						</button>
+
+						<!-- 右箭头 -->
+						<button id="heroes-next"
+							class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full w-12 h-12 shadow-lg flex items-center justify-center hover:bg-red-800 hover:text-white transition-all">
+							<i class="fa fa-chevron-right"></i>
+						</button>
+
+						<!-- 修改容器为水平滚动 -->
+						<div class="flex justify-center items-center pb-8 gap-6 px-4" id="heroes-container">
+							<!-- 英雄卡片 1 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale hero-card flex-shrink-0 w-80"
+								data-category="军事将领">
+								<a href="a-1.html" class="block">
+									<div class="relative">
+										<img src="img/maozedong.jpg" alt="毛泽东" class="w-full aspect-[3/4] object-cover">
+										<div class="absolute top-4 left-4">
+											<span
+												class="px-3 py-1 bg-red-800 text-white text-sm font-medium rounded-full">军事将领</span>
+										</div>
+									</div>
+									<div class="p-6">
+										<h3 class="font-bold text-red-800 text-xl mb-2">毛泽东</h3>
+										<p class="text-gray-500 text-sm mb-4">中央红军领导人</p>
+										<p class="text-gray-700 mb-4 line-clamp-3">
+											长征期间，毛泽东以其卓越的军事才能和政治智慧，领导红军摆脱国民党军队的围追堵截，在遵义会议上确立了在党和红军中的领导地位，为长征胜利奠定了坚实基础。
+										</p>
+										<div class="flex justify-between items-center">
+											<span class="text-red-800 font-medium transition-colors flex items-center">
+												查看详情 <i class="fa fa-arrow-right ml-2"></i>
+											</span>
+											<div class="flex items-center text-yellow-400">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<!-- 英雄卡片 2 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale hero-card flex-shrink-0 w-80"
+								data-category="军事将领">
+								<a href="a-2.html" class="block">
+									<div class="relative">
+										<img src="img/zhouenlai.jpg" alt="周恩来" class="w-full aspect-[3/4] object-cover">
+										<div class="absolute top-4 left-4">
+											<span
+												class="px-3 py-1 bg-red-800 text-white text-sm font-medium rounded-full">军事将领</span>
+										</div>
+									</div>
+									<div class="p-6">
+										<h3 class="font-bold text-red-800 text-xl mb-2">周恩来</h3>
+										<p class="text-gray-500 text-sm mb-4">中央革命军事委员会副主席</p>
+										<p class="text-gray-700 mb-4 line-clamp-3">
+											长征中，周恩来协助毛泽东指挥红军作战，特别是在遵义会议前后发挥了重要作用。他以其卓越的组织能力和外交才能，为红军顺利通过少数民族地区做出了重要贡献。
+										</p>
+										<div class="flex justify-between items-center">
+											<span class="text-red-800 font-medium transition-colors flex items-center">
+												查看详情 <i class="fa fa-arrow-right ml-2"></i>
+											</span>
+											<div class="flex items-center text-yellow-400">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-half-alt"></i>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<!-- 英雄卡片 3 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale hero-card flex-shrink-0 w-80"
+								data-category="军事将领">
+								<a href="a-3.html" class="block">
+									<div class="relative">
+										<img src="img/zhude.png" alt="朱德" class="w-full aspect-[3/4] object-cover">
+										<div class="absolute top-4 left-4">
+											<span
+												class="px-3 py-1 bg-red-800 text-white text-sm font-medium rounded-full">军事将领</span>
+										</div>
+									</div>
+									<div class="p-6">
+										<h3 class="font-bold text-red-800 text-xl mb-2">朱德</h3>
+										<p class="text-gray-500 text-sm mb-4">中国工农红军总司令</p>
+										<p class="text-gray-700 mb-4 line-clamp-3">
+											作为红军总司令，朱德在长征中指挥红军与国民党军队进行了多次重要战役。他身先士卒，与战士们同甘共苦，以其坚定的革命信念和卓越的军事才能赢得了全军将士的尊敬。
+										</p>
+										<div class="flex justify-between items-center">
+											<span class="text-red-800 font-medium transition-colors flex items-center">
+												查看详情 <i class="fa fa-arrow-right ml-2"></i>
+											</span>
+											<div class="flex items-center text-yellow-400">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<!-- 英雄卡片 4 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale hero-card flex-shrink-0 w-80"
+								data-category="女红军">
+								<a href="a-4.html" class="block">
+									<div class="relative">
+										<img src="img/hezijia.jpg" alt="贺子珍" class="w-full aspect-[3/4] object-cover">
+										<div class="absolute top-4 left-4">
+											<span
+												class="px-3 py-1 bg-pink-500 text-white text-sm font-medium rounded-full">女红军</span>
+										</div>
+									</div>
+									<div class="p-6">
+										<h3 class="font-bold text-red-800 text-xl mb-2">贺子珍</h3>
+										<p class="text-gray-500 text-sm mb-4">中央红军女战士</p>
+										<p class="text-gray-700 mb-4 line-clamp-3">
+											贺子珍是长征中为数不多的女红军之一。在长征途中，她不仅照顾伤员，还积极参与战斗。在一次敌机轰炸中，她为掩护战友身负重伤，身上留下了十几块弹片。
+										</p>
+										<div class="flex justify-between items-center">
+											<span class="text-red-800 font-medium transition-colors flex items-center">
+												查看详情 <i class="fa fa-arrow-right ml-2"></i>
+											</span>
+											<div class="flex items-center text-yellow-400">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="far fa-star"></i>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<!-- 英雄卡片 5 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale hero-card flex-shrink-0 w-80"
+								data-category="军事将领">
+								<a href="a-5.html" class="block">
+									<div class="relative">
+										<img src="img/helong.webp" alt="贺龙" class="w-full aspect-[3/4] object-cover">
+										<div class="absolute top-4 left-4">
+											<span
+												class="px-3 py-1 bg-red-800 text-white text-sm font-medium rounded-full">军事将领</span>
+										</div>
+									</div>
+									<div class="p-6">
+										<h3 class="font-bold text-red-800 text-xl mb-2">贺龙</h3>
+										<p class="text-gray-500 text-sm mb-4">红二方面军总指挥</p>
+										<p class="text-gray-700 mb-4 line-clamp-3">
+											贺龙是红二方面军的主要创建者和领导人。长征期间率领红二、六军团从湘鄂川黔革命根据地出发，转战湘中、黔东、滇北，最终于1936年10月在甘肃会宁与红一方面军胜利会师。
+										</p>
+										<div class="flex justify-between items-center">
+											<span class="text-red-800 font-medium transition-colors flex items-center">
+												查看详情 <i class="fa fa-arrow-right ml-2"></i>
+											</span>
+											<div class="flex items-center text-yellow-400">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<!-- 英雄卡片 6 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale hero-card flex-shrink-0 w-80"
+								data-category="青年英雄,女红军">
+								<a href="a-6.html" class="block">
+									<div class="relative">
+										<img src="img/wangxinlan.webp" alt="王新兰"
+											class="w-full aspect-[3/4] object-cover">
+										<div class="absolute top-4 left-4 flex flex-wrap gap-1">
+											<span
+												class="px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded-full">青年英雄</span>
+											<span
+												class="px-3 py-1 bg-pink-500 text-white text-sm font-medium rounded-full">女红军</span>
+										</div>
+									</div>
+									<div class="p-6">
+										<h3 class="font-bold text-red-800 text-xl mb-2">王新兰</h3>
+										<p class="text-gray-500 text-sm mb-4">红军宣传员</p>
+										<p class="text-gray-700 mb-4 line-clamp-3">
+											王新兰9岁参加红军，11岁随部队长征，是长征中年龄最小的女红军之一。她在长征途中担任宣传员，用歌声和舞蹈鼓舞士气，被称为"长征中的小百灵"。
+										</p>
+										<div class="flex justify-between items-center">
+											<span class="text-red-800 font-medium transition-colors flex items-center">
+												查看详情 <i class="fa fa-arrow-right ml-2"></i>
+											</span>
+											<div class="flex items-center text-yellow-400">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-half-alt"></i>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 英雄时间线 -->
+			<section id="heroes-timeline" class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">英雄时间线</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">沿着长征路线，回顾英雄足迹</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="relative">
+						<!-- 时间线中轴线 -->
+						<div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+
+						<!-- 时间线项目 -->
+						<div class="timeline-container relative z-10">
+							<!-- 1934年10月 - 出发 -->
+							<div class="timeline-item mb-16 relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">瑞金出发</h3>
+										<p class="text-gray-600 mb-2 text-primary">1934年10月</p>
+										<p>中央红军主力从瑞金等地出发，开始长征。毛泽东、周恩来、朱德等领导人率领红军踏上漫漫征程。</p>
+										<div class="mt-4">
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">毛泽东</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">周恩来</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">朱德</span>
+										</div>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div
+											class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+											<i class="fa fa-flag"></i>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<img src="img/ruijin.png" alt="瑞金出发" class="rounded-lg shadow-md">
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年1月 - 遵义会议 -->
+							<div class="timeline-item mb-16 relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+										<img src="img/zunyi.jpg" alt="遵义会议" class="rounded-lg shadow-md">
+									</div>
+									<div class="md:w-12 flex justify-center order-2">
+										<div
+											class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+											<i class="fa fa-comments"></i>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">遵义会议</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年1月</p>
+										<p>遵义会议确立了毛泽东在党中央和红军的领导地位。张闻天、王稼祥等人在会议上支持毛泽东的正确主张。</p>
+										<div class="mt-4">
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">毛泽东</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">张闻天</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">王稼祥</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年5月 - 强渡大渡河 -->
+							<div class="timeline-item mb-16 relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">强渡大渡河</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年5月</p>
+										<p>红军在安顺场强渡大渡河，17名勇士组成渡河奋勇队，在枪林弹雨中成功强渡，为红军主力渡河开辟了道路。</p>
+										<div class="mt-4">
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">熊尚林</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">罗会明</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">刘长发</span>
+										</div>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div
+											class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+											<i class="fa fa-ship"></i>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<img src="img/daduhe.webp" alt="强渡大渡河" class="rounded-lg shadow-md">
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年5月 - 飞夺泸定桥 -->
+							<div class="timeline-item mb-16 relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+										<img src="img/ludinqiao.webp" alt="飞夺泸定桥" class="rounded-lg shadow-md">
+									</div>
+									<div class="md:w-12 flex justify-center order-2">
+										<div
+											class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+											<i class="fa fa-balance-scale"></i>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">飞夺泸定桥</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年5月</p>
+										<p>红四团二连22名勇士组成突击队，在铁索桥上匍匐前进，冒着枪林弹雨夺下泸定桥，创造了战争史上的奇迹。</p>
+										<div class="mt-4">
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">廖大珠</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">王海云</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">李友林</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年6月-8月 - 过雪山草地 -->
+							<div class="timeline-item mb-16 relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">翻越雪山过草地</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年6月-8月</p>
+										<p>红军翻越终年积雪的夹金山，穿越人迹罕至的草地。无数红军战士因饥饿、寒冷和疾病牺牲在雪山草地上。</p>
+										<div class="mt-4">
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">谢益先</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">邓颖超</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">蔡畅</span>
+										</div>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div
+											class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+											<i class="fa fa-tree"></i>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<img src="img/xueshan.jpg" alt="红军过雪山草地" class="rounded-lg shadow-md">
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年10月 - 吴起镇会师 -->
+							<div class="timeline-item mb-16 relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+										<img src="img/wuqizhen.jpg" alt="吴起镇会师" class="rounded-lg shadow-md">
+									</div>
+									<div class="md:w-12 flex justify-center order-2">
+										<div
+											class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+											<i class="fa fa-users"></i>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">中央红军到达吴起镇</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年10月</p>
+										<p>中央红军到达陕北吴起镇，与陕北红军胜利会师。毛泽东在此写下了"山高路远坑深，大军纵横驰奔"的著名诗句。</p>
+										<div class="mt-4">
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">毛泽东</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">彭德怀</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">徐海东</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 1936年10月 - 三大主力会师 -->
+							<div class="timeline-item relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">红军三大主力会师</h3>
+										<p class="text-gray-600 mb-2 text-primary">1936年10月</p>
+										<p>红二、四方面军到达甘肃会宁地区，同红一方面军会师。红军三大主力会师，标志着长征的全面胜利。</p>
+										<div class="mt-4">
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">贺龙</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">任弼时</span>
+											<span
+												class="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">徐向前</span>
+										</div>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div
+											class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white z-10">
+											<i class="fa fa-star"></i>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<img src="img/huishi.jpg" alt="红军三大主力会师" class="rounded-lg shadow-md">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 英雄精神传承 -->
+			<section id="heroes-legacy" class="py-20 bg-neutral/5">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">英雄精神传承</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">英雄精神永垂不朽，激励后人砥砺前行</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<div class="bg-white p-8 rounded-xl shadow-lg">
+							<h3 class="font-bold text-primary text-xl mb-4">英雄精神的内涵</h3>
+							<p class="text-neutral/70 mb-6">
+								长征英雄们展现出的坚定信念、不怕牺牲、艰苦奋斗、团结互助的精神，是中国共产党和中国人民宝贵的精神财富。这种精神跨越时空，历久弥新，成为激励我们不断前进的强大动力。
+							</p>
+							<ul class="space-y-3">
+								<li class="flex items-start">
+									<i class="fa fa-check-circle text-primary mt-1 mr-3"></i>
+									<span>坚定的理想信念是英雄精神的灵魂</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check-circle text-primary mt-1 mr-3"></i>
+									<span>不怕牺牲的英雄气概是英雄精神的核心</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check-circle text-primary mt-1 mr-3"></i>
+									<span>艰苦奋斗的优良作风是英雄精神的体现</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check-circle text-primary mt-1 mr-3"></i>
+									<span>团结互助的集体主义是英雄精神的基础</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="bg-white p-8 rounded-xl shadow-lg">
+							<h3 class="font-bold text-primary text-xl mb-4">新时代的英雄精神</h3>
+							<p class="text-neutral/70 mb-6">
+								在新时代，长征英雄精神依然具有重要的现实意义。它激励我们在实现中华民族伟大复兴的中国梦的征程中，不畏艰难，勇往直前，不断创造新的辉煌。
+							</p>
+							<div class="grid grid-cols-2 gap-4">
+								<div class="bg-primary/5 p-4 rounded-lg">
+									<h4 class="font-bold text-primary mb-2">脱贫攻坚</h4>
+									<p class="text-sm text-neutral/70">扶贫干部发扬长征精神，帮助近亿人口摆脱贫困</p>
+								</div>
+								<div class="bg-primary/5 p-4 rounded-lg">
+									<h4 class="font-bold text-primary mb-2">抗击疫情</h4>
+									<p class="text-sm text-neutral/70">医护人员逆行出征，展现新时代英雄担当</p>
+								</div>
+								<div class="bg-primary/5 p-4 rounded-lg">
+									<h4 class="font-bold text-primary mb-2">科技创新</h4>
+									<p class="text-sm text-neutral/70">科研人员攻坚克难，实现多项技术突破</p>
+								</div>
+								<div class="bg-primary/5 p-4 rounded-lg">
+									<h4 class="font-bold text-primary mb-2">抢险救灾</h4>
+									<p class="text-sm text-neutral/70">救援人员不畏艰险，保护人民生命财产安全</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- 页脚 -->
+		<footer class="bg-dark text-white py-12">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+					<div>
+						<h3 class="text-xl font-bold mb-4">长征精神永放光芒</h3>
+						<p class="text-gray-400">铭记光辉历史，传承红色基因，弘扬长征精神，走好新时代的长征路。</p>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">快速链接</h4>
+						<ul class="space-y-2">
+							<li><a href="index.html#history"
+									class="text-gray-400 hover:text-white transition-colors">历史全景</a></li>
+							<li><a href="a.html" class="text-gray-400 hover:text-white transition-colors">英雄人物</a></li>
+							<li><a href="index.html#spirit"
+									class="text-gray-400 hover:text-white transition-colors">精神解读</a></li>
+							<li><a href="index.html#education"
+									class="text-gray-400 hover:text-white transition-colors">红色育人</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">资源中心</h4>
+						<ul class="space-y-2">
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">长征文献</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">影像资料</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">红色文物</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">互动体验</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">联系我们</h4>
+						<ul class="space-y-2">
+							<li class="flex items-center">
+								<i class="fa fa-envelope mr-2 text-gray-400"></i>
+								<span class="text-gray-400">contact@changzheng.edu</span>
+							</li>
+							<li class="flex items-center">
+								<i class="fa fa-phone mr-2 text-gray-400"></i>
+								<span class="text-gray-400">400-123-4567</span>
+							</li>
+							<li class="flex items-center">
+								<i class="fa fa-map-marker mr-2 text-gray-400"></i>
+								<span class="text-gray-400">北京市海淀区高校路1号</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+					<p>© 2023 长征精神永放光芒 - 高校主题教育网站. 保留所有权利.</p>
+				</div>
+			</div>
+		</footer>
+		<script>
+		    // 英雄卡片滚动功能 - 修复版
+		        (function() {
+		            const heroesContainer = document.getElementById('heroes-container');
+		            const heroesPrev = document.getElementById('heroes-prev');
+		            const heroesNext = document.getElementById('heroes-next');
+		            
+		            // 保存原始卡片HTML，用于恢复
+		            const originalContainerHTML = heroesContainer.innerHTML;
+		            
+		            // 获取单个卡片的宽度（包括间距）
+		            const cardWidth = 320;
+		            let currentIndex = 0;
+		            let currentCategory = '全部';
+		            let filteredCards = [];
+		            let isSearching = false;
+		            
+		            // 简单搜索函数
+		            function simpleSearch(text, pattern) {
+		                if (!pattern) return true;
+		                return text.toLowerCase().includes(pattern.toLowerCase());
+		            }
+		            
+		            // 获取所有英雄卡片
+		            function getAllCards() {
+		                return Array.from(document.querySelectorAll('.hero-card'));
+		            }
+		            
+		            // 更新显示
+		            function updateDisplay() {
+		                const allCards = getAllCards();
+		                
+		                // 重置所有卡片显示状态
+		                allCards.forEach(card => {
+		                    card.style.display = 'none';
+		                });
+		                
+		                // 显示过滤后的卡片
+		                const visibleCount = Math.floor(heroesContainer.clientWidth / cardWidth);
+		                
+		                filteredCards.forEach((card, index) => {
+		                    if (index >= currentIndex && index < currentIndex + visibleCount) {
+		                        card.style.display = 'block';
+		                    }
+		                });
+		                
+		                // 计算居中显示
+		                const totalFilteredCards = filteredCards.length;
+		                const cardsToShow = Math.min(visibleCount, totalFilteredCards - currentIndex);
+		                const emptySpace = visibleCount - cardsToShow;
+		                
+		                if (emptySpace > 0) {
+		                    const padding = (emptySpace * cardWidth) / 2;
+		                    heroesContainer.style.paddingLeft = padding + 'px';
+		                    heroesContainer.style.paddingRight = padding + 'px';
+		                } else {
+		                    heroesContainer.style.paddingLeft = '0px';
+		                    heroesContainer.style.paddingRight = '0px';
+		                }
+		                
+		                // 更新箭头显示状态
+		                heroesPrev.style.display = currentIndex === 0 ? 'none' : 'flex';
+		                heroesNext.style.display = currentIndex + visibleCount >= totalFilteredCards ? 'none' : 'flex';
+		                
+		                // 如果没有符合条件的卡片，显示提示
+		                if (totalFilteredCards === 0) {
+		                    heroesContainer.innerHTML = '<div class="text-center text-gray-500 py-8 col-span-full">未找到相关英雄</div>';
+		                    heroesPrev.style.display = 'none';
+		                    heroesNext.style.display = 'none';
+		                }
+		            }
+		            
+		            // 选择分类函数
+		            function selectCategory(category) {
+		                // 重置搜索状态
+		                isSearching = false;
+		                document.getElementById('hero-search').value = '';
+		                
+		                // 更新活动按钮状态
+		                document.querySelectorAll('.hero-category, .active-hero-category').forEach(btn => {
+		                    btn.classList.remove('active-hero-category', 'bg-primary', 'text-white');
+		                    btn.classList.add('bg-gray-100', 'text-neutral');
+		                });
+		                
+		                // 激活当前分类按钮
+		                const activeButton = document.querySelector(`[data-category="${category}"]`);
+		                if (activeButton) {
+		                    activeButton.classList.remove('bg-gray-100', 'text-neutral');
+		                    activeButton.classList.add('active-hero-category', 'bg-primary', 'text-white');
+		                }
+		                
+		                // 重置索引
+		                currentCategory = category;
+		                currentIndex = 0;
+		                
+		                // 恢复原始内容
+		                heroesContainer.innerHTML = originalContainerHTML;
+		                
+		                // 根据分类过滤卡片
+		                if (category === '全部') {
+		                    filteredCards = getAllCards();
+		                } else {
+		                    filteredCards = getAllCards().filter(card => {
+		                        const categories = card.getAttribute('data-category').split(',');
+		                        return categories.includes(category);
+		                    });
+		                }
+		                
+		                updateDisplay();
+		            }
+		            
+		            function initHeroesCarousel() {
+		                // 初始化过滤卡片
+		                filteredCards = getAllCards();
+		                
+		                // 左右箭头事件
+		                heroesNext.addEventListener('click', () => {
+		                    const visibleCount = Math.floor(heroesContainer.clientWidth / cardWidth);
+		                    
+		                    if (currentIndex + visibleCount < filteredCards.length) {
+		                        currentIndex += visibleCount;
+		                        updateDisplay();
+		                    }
+		                });
+		                
+		                heroesPrev.addEventListener('click', () => {
+		                    const visibleCount = Math.floor(heroesContainer.clientWidth / cardWidth);
+		                    
+		                    if (currentIndex - visibleCount >= 0) {
+		                        currentIndex -= visibleCount;
+		                    } else {
+		                        currentIndex = 0;
+		                    }
+		                    updateDisplay();
+		                });
+		                
+		                // 英雄分类筛选
+		                document.querySelectorAll('.hero-category, .active-hero-category').forEach(button => {
+		                    button.addEventListener('click', function() {
+		                        const category = this.getAttribute('data-category');
+		                        selectCategory(category);
+		                    });
+		                });
+		                
+		                // 英雄搜索功能 - 修复版
+		                document.getElementById('hero-search').addEventListener('input', function() {
+		                    const searchTerm = this.value.trim();
+		                    
+		                    // 重置索引
+		                    currentIndex = 0;
+		                    
+		                    // 如果搜索词为空，重置搜索状态
+		                    if (searchTerm === '') {
+		                        isSearching = false;
+		                        heroesContainer.innerHTML = originalContainerHTML;
+		                        
+		                        // 根据当前分类重新过滤
+		                        if (currentCategory === '全部') {
+		                            filteredCards = getAllCards();
+		                        } else {
+		                            filteredCards = getAllCards().filter(card => {
+		                                const categories = card.getAttribute('data-category').split(',');
+		                                return categories.includes(currentCategory);
+		                            });
+		                        }
+		                        
+		                        updateDisplay();
+		                        return;
+		                    }
+		                    
+		                    // 设置搜索状态
+		                    isSearching = true;
+		                    
+		                    // 恢复原始内容
+		                    heroesContainer.innerHTML = originalContainerHTML;
+		                    
+		                    // 根据搜索词过滤卡片
+		                    const allCards = getAllCards();
+		                    filteredCards = allCards.filter(card => {
+		                        const title = card.querySelector('h3').textContent;
+		                        const description = card.querySelector('p').textContent;
+		                        const role = card.querySelector('.text-gray-500').textContent;
+		                        
+		                        return simpleSearch(title, searchTerm) || 
+		                               simpleSearch(description, searchTerm) || 
+		                               simpleSearch(role, searchTerm);
+		                    });
+		                    
+		                    // 如果没有搜索结果，显示提示
+		                    if (filteredCards.length === 0) {
+		                        heroesContainer.innerHTML = '<div class="text-center text-gray-500 py-8 col-span-full">未找到相关英雄</div>';
+		                        heroesPrev.style.display = 'none';
+		                        heroesNext.style.display = 'none';
+		                    } else {
+		                        updateDisplay();
+		                    }
+		                });
+		                
+		                // 页面加载时自动选择"全部"分类
+		                selectCategory('全部');
+		            }
+		            
+		            // 在DOM加载完成后初始化
+		            if (document.readyState === 'loading') {
+		                document.addEventListener('DOMContentLoaded', initHeroesCarousel);
+		            } else {
+		                initHeroesCarousel();
+		            }
+		            
+		            // 窗口大小变化时重新计算
+		            window.addEventListener('resize', updateDisplay);
+		        })();
+		</script>
+	</body>
+</html>

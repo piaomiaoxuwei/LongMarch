@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>毛泽东与长征 - 长征精神永放光芒</title>
+		<script src="js/jquery-3.7.1.min.js"></script>
+		<script src="js/tailwind.3.4.16.min.js"></script>
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet" />
+
+		<!-- tailwind config -->
+		<script src="js/tailwind.config.js"></script>
+		<link href="css/tailwind.page.css" rel="stylesheet" />
+
+		<style>
+			.circle-content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+			}
+
+			.circle-number {
+				font-size: 1.5rem;
+				font-weight: bold;
+				line-height: 1;
+				margin-bottom: 0.25rem;
+			}
+
+			.circle-text {
+				font-size: 0.7rem;
+				line-height: 1.1;
+				max-width: 80%;
+			}
+
+			.timeline-circle {
+				position: relative;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto;
+				z-index: 10;
+			}
+
+			.timeline-circle-content {
+				text-align: center;
+				color: white;
+				font-weight: bold;
+			}
+
+			.timeline-circle .year {
+				font-size: 1.2rem;
+				line-height: 1;
+			}
+
+			.timeline-circle .month {
+				font-size: 0.8rem;
+				line-height: 1;
+			}
+
+			.stats-circle {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto 1rem;
+			}
+
+			/* 返回按钮样式 */
+			.back-button {
+				position: fixed;
+				bottom: 30px;
+				right: 30px;
+				z-index: 100;
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, var(--primary), var(--secondary));
+				color: rgb(196 30 58 / 0.5);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+				transition: all 0.3s ease;
+				cursor: pointer;
+				border: none;
+				font-size: 1.2rem;
+			}
+
+			.back-button:hover {
+				transform: translateY(-3px) scale(1.05);
+				box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+			}
+
+			.back-button:active {
+				transform: translateY(-1px) scale(1.02);
+			}
+
+			/* 移动端适配 */
+			@media (max-width: 768px) {
+				.back-button {
+					bottom: 20px;
+					right: 20px;
+					width: 50px;
+					height: 50px;
+					font-size: 1rem;
+				}
+			}
+		</style>
+	</head>
+	<body class="font-inter bg-light text-neutral scroll-smooth">
+		<!-- 导航栏 -->
+		<header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+		    <div class="bg-primary/90 backdrop-blur-md text-white shadow-lg">
+		        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+		            <a href="#blanner" class="flex items-center space-x-2">
+		                <i class="fa fa-bookmark text-secondary text-2xl"></i>
+		                <span class="text-xl font-bold">长征精神永放光芒</span>
+		            </a>
+
+		            <!-- 桌面导航 -->
+		            <nav class="hidden md:flex items-center space-x-8">
+		                <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+		                <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+		                <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+		                <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+		                <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+		                <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+		            </nav>
+
+		            <!-- 移动端菜单按钮 -->
+		            <button class="md:hidden text-white text-2xl" id="menuBtn">
+		                <i class="fa fa-bars"></i>
+		            </button>
+		        </div>
+		    </div>
+
+		    <!-- 移动端导航菜单 -->
+		    <div class="md:hidden bg-primary/95 backdrop-blur-md text-white shadow-lg transform -translate-y-full transition-transform duration-300"
+		        id="mobileMenu">
+		        <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+		            <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+		            <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+		            <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+		            <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+		            <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+		            <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+		            <a href="#"
+		                class="py-2 px-5 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/80 transition-colors text-center">党史学习教育</a>
+		        </div>
+		    </div>
+		</header>
+
+		<!-- 返回按钮 -->
+		<button class="back-button" id="backButton" title="返回上一页">
+			<i class="fa fa-arrow-left"></i>
+		</button>
+
+		<main class="pt-16">
+			<!-- 英雄区域 -->
+			<section id="heroes-banner"
+			    class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+			    <div class="absolute inset-0 z-0">
+			        <img src="img/titlebg.jpg" alt="长征精神永放光芒" class="w-full h-full object-cover">
+			        <div class="absolute inset-0 bg-dark/60"></div>
+			    </div>
+
+			    <div class="container mx-auto px-4 relative z-10 text-center">
+			        <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-6 text-shadow">毛泽东与长征</h1>
+			        <p class="text-[clamp(1rem,2vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+						伟大领袖在长征中的卓越贡献与历史意义
+					</p>
+					<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+						<a href="#early-life"
+							class="px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/50 hover:-translate-y-1">早年经历</a>
+						<a href="#long-march"
+							class="px-8 py-4 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/90 transition-all shadow-lg hover:shadow-secondary/50 hover:-translate-y-1">长征贡献</a>
+						<a href="#legacy"
+							class="px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-white/90 transition-all shadow-lg hover:shadow-white/50 hover:-translate-y-1">历史遗产</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- 数据统计 -->
+			<section class="py-16 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+						<div class="text-center">
+							<div class="stats-circle bg-primary/10 text-primary">
+								<div class="circle-content">
+									<div class="circle-number">25,000</div>
+									<div class="circle-text">里长征路程</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">长征里程</h3>
+						</div>
+
+						<div class="text-center">
+							<div class="stats-circle bg-secondary/10 text-secondary">
+								<div class="circle-content">
+									<div class="circle-number">368</div>
+									<div class="circle-text">天行军时间</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">行军天数</h3>
+						</div>
+
+						<div class="text-center">
+							<div class="stats-circle bg-primary/10 text-primary">
+								<div class="circle-content">
+									<div class="circle-number">11</div>
+									<div class="circle-text">个省份跨越</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">途经省份</h3>
+						</div>
+
+						<div class="text-center">
+							<div class="stats-circle bg-secondary/10 text-secondary">
+								<div class="circle-content">
+									<div class="circle-number">600</div>
+									<div class="circle-text">余次重要战斗</div>
+								</div>
+							</div>
+							<h3 class="font-bold text-primary">重要战斗</h3>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 早年经历 -->
+			<section id="early-life" class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="flex flex-col lg:flex-row gap-12 items-center">
+						<div class="lg:w-1/3">
+							<div class="rounded-xl overflow-hidden shadow-2xl">
+								<img src="img/maozedong.jpg" alt="毛泽东" class="w-full h-auto">
+							</div>
+							<div class="mt-6 text-center">
+								<h3 class="text-xl font-bold text-primary">毛泽东 (1893-1976)</h3>
+								<p class="text-neutral/70">伟大的无产阶级革命家、战略家和理论家</p>
+							</div>
+						</div>
+
+						<div class="lg:w-2/3">
+							<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-6">早年革命经历</h2>
+							<div class="space-y-6">
+								<div class="bg-light p-6 rounded-lg">
+									<h3 class="font-bold text-primary text-xl mb-3">求学与思想形成</h3>
+									<p class="text-neutral/70">
+										毛泽东1893年出生于湖南湘潭韶山冲。早年就读于湖南第一师范学校，期间开始接触马克思主义思想。1918年，他与蔡和森等人组织新民学会，积极探索救国救民的道路。
+									</p>
+								</div>
+
+								<div class="bg-light p-6 rounded-lg">
+									<h3 class="font-bold text-primary text-xl mb-3">参与建党与早期革命</h3>
+									<p class="text-neutral/70">
+										1921年，毛泽东参加中国共产党第一次全国代表大会，成为党的创始人之一。随后，他领导了湖南工人运动和农民运动，撰写了《湖南农民运动考察报告》，提出了"枪杆子里面出政权"的著名论断。
+									</p>
+								</div>
+
+								<div class="bg-light p-6 rounded-lg">
+									<h3 class="font-bold text-primary text-xl mb-3">创建革命根据地</h3>
+									<p class="text-neutral/70">
+										1927年，毛泽东领导秋收起义，创建了井冈山革命根据地，开辟了"农村包围城市，武装夺取政权"的革命道路。此后，他领导中央革命根据地的建设和反"围剿"斗争，积累了丰富的军事经验。
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 长征贡献 -->
+			<section id="long-march" class="py-20 bg-neutral/5">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">毛泽东在长征中的卓越贡献</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">从边缘到核心：毛泽东如何领导红军走向胜利</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">领导确立</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">遵义会议确立领导地位</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								1935年1月，中共中央在贵州遵义召开政治局扩大会议。在这次会议上，毛泽东被增选为政治局常委，确立了在党中央和红军的领导地位。这是中国共产党历史上一个生死攸关的转折点。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>批判了博古、李德的"左"倾军事路线</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>确立了毛泽东在军事上的领导地位</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>形成了以毛泽东为核心的新的中央领导集体</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">四渡赤水</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">四渡赤水出奇兵</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								毛泽东指挥中央红军在贵州、四川、云南边境地区来回穿越赤水河，巧妙地调动和迷惑国民党军队，创造了战争史上的奇迹。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>一渡赤水：摆脱被动，寻求主动</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>二渡赤水：回师黔北，取得遵义大捷</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>三渡赤水：引敌西进，调动敌军</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>四渡赤水：乘隙东进，跳出包围圈</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">团结统一</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">正确处理党内矛盾</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								长征途中，毛泽东以高超的政治智慧，妥善处理了党和红军内部的各种矛盾，维护了党和红军的团结统一。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>与张国焘分裂主义进行坚决斗争</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>坚持北上抗日方针，反对南下错误主张</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>团结大多数同志，孤立极少数错误路线执行者</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+							<div class="text-center mb-6">
+								<div
+									class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<div class="circle-text">诗词创作</div>
+									</div>
+								</div>
+								<h3 class="font-bold text-primary text-xl">长征诗词创作</h3>
+							</div>
+							<p class="text-neutral/70 mb-4">
+								长征途中，毛泽东创作了多首气势磅礴的诗词，艺术地记录了长征这一伟大历史事件，展现了革命乐观主义精神。
+							</p>
+							<ul class="space-y-2 text-neutral/70">
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>《忆秦娥·娄山关》："雄关漫道真如铁，而今迈步从头越"</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>《七律·长征》："红军不怕远征难，万水千山只等闲"</span>
+								</li>
+								<li class="flex items-start">
+									<i class="fa fa-check text-primary mt-1 mr-2"></i>
+									<span>《清平乐·六盘山》："不到长城非好汉，屈指行程二万"</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="mt-16 bg-white p-8 rounded-xl shadow-lg">
+						<h3 class="font-bold text-primary text-xl mb-6 text-center">毛泽东长征军事思想的核心内容</h3>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+							<div class="text-center p-4">
+								<div
+									class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<i class="fa fa-user-shield text-xl mb-1"></i>
+										<div class="circle-text">人民战争</div>
+									</div>
+								</div>
+								<h4 class="font-bold text-primary mb-2">人民战争思想</h4>
+								<p class="text-sm text-neutral/70">战争的伟力之最深厚的根源，存在于民众之中</p>
+							</div>
+							<div class="text-center p-4">
+								<div
+									class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<i class="fa fa-tachometer-alt text-xl mb-1"></i>
+										<div class="circle-text">灵活机动</div>
+									</div>
+								</div>
+								<h4 class="font-bold text-primary mb-2">灵活机动战略战术</h4>
+								<p class="text-sm text-neutral/70">你打你的，我打我的；打得赢就打，打不赢就走</p>
+							</div>
+							<div class="text-center p-4">
+								<div
+									class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+									<div class="circle-content text-primary">
+										<i class="fa fa-fist-raised text-xl mb-1"></i>
+										<div class="circle-text">独立自主</div>
+									</div>
+								</div>
+								<h4 class="font-bold text-primary mb-2">独立自主原则</h4>
+								<p class="text-sm text-neutral/70">中国的事情必须由中国人民自己作主张，自己来处理</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 长征时间线 -->
+			<section class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">毛泽东长征时间线</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">重要历史节点与关键决策</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="relative">
+						<!-- 时间线中轴线 -->
+						<div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+
+						<!-- 时间线项目 -->
+						<div class="timeline-container relative z-10 space-y-16">
+							<!-- 1934年10月 -->
+							<div class="timeline-item relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">瑞金出发</h3>
+										<p class="text-gray-600 mb-2 text-primary">1934年10月</p>
+										<p>中央红军主力从瑞金等地出发，开始长征。毛泽东随中央纵队行动，开始思考红军的前进方向。</p>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div class="timeline-circle bg-primary">
+											<div class="timeline-circle-content">
+												<div class="year">1934</div>
+												<div class="month">10月</div>
+											</div>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<div class="bg-light p-4 rounded-lg">
+											<h4 class="font-bold text-primary mb-2">关键决策</h4>
+											<p class="text-sm">毛泽东开始酝酿改变红军战略方向</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年1月 -->
+							<div class="timeline-item relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+										<div class="bg-light p-4 rounded-lg">
+											<h4 class="font-bold text-primary mb-2">历史转折</h4>
+											<p class="text-sm">确立毛泽东领导地位的关键会议</p>
+										</div>
+									</div>
+									<div class="md:w-12 flex justify-center order-2">
+										<div class="timeline-circle bg-primary">
+											<div class="timeline-circle-content">
+												<div class="year">1935</div>
+												<div class="month">1月</div>
+											</div>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">遵义会议</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年1月</p>
+										<p>遵义会议确立了毛泽东在党中央和红军的领导地位，结束了"左"倾教条主义错误在中央的统治。</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- 1935年5月 -->
+							<div class="timeline-item relative">
+								<div class="flex flex-col md:flex-row items-center">
+									<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+										<h3 class="text-xl font-bold mb-2 text-primary">四渡赤水</h3>
+										<p class="text-gray-600 mb-2 text-primary">1935年1月-5月</p>
+										<p>毛泽东指挥红军四渡赤水，巧妙调动敌军，摆脱围追堵截，展现了卓越的军事指挥艺术。</p>
+									</div>
+									<div class="md:w-12 flex justify-center order-1 md:order-2">
+										<div class="timeline-circle bg-secondary">
+											<div class="timeline-circle-content">
+												<div class="year">1935</div>
+												<div class="month">1-5月</div>
+											</div>
+										</div>
+									</div>
+									<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+										<div class="bg-light p-4 rounded-lg">
+											<h4 class="font-bold text-primary mb-2">军事杰作</h4>
+											<p class="text-sm">运动战的经典范例</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 历史意义 -->
+			<section id="legacy" class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">毛泽东长征精神的历史意义</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">从胜利走向胜利：长征精神的当代价值</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+						<div>
+							<h3 class="font-bold text-primary text-xl mb-6">长征的历史意义</h3>
+							<div class="space-y-6">
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-primary">
+											<i class="fa fa-flag"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">保存革命火种</h4>
+										<p class="text-neutral/70">长征的胜利使中国共产党和中国工农红军的主力得以保存，为日后夺取全国政权奠定了坚实基础。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-primary">
+											<i class="fa fa-users"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">确立领导核心</h4>
+										<p class="text-neutral/70">
+											长征途中召开的遵义会议确立了毛泽东在党和红军中的领导地位，形成了以毛泽东为核心的第一个稳定成熟的中央领导集体。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-primary">
+											<i class="fa fa-book"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">传播革命理想</h4>
+										<p class="text-neutral/70">
+											长征是宣言书，长征是宣传队，长征是播种机。它向全中国和全世界宣告，中国共产党和中国工农红军是不可战胜的力量。</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<h3 class="font-bold text-primary text-xl mb-6">长征精神的当代价值</h3>
+							<div class="space-y-6">
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-secondary">
+											<i class="fa fa-heart"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">坚定理想信念</h4>
+										<p class="text-neutral/70">长征精神告诉我们，理想信念是精神之钙，是战胜一切艰难险阻的强大精神支柱。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-secondary">
+											<i class="fa fa-book text-2xl mb-1"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">维护团结统一</h4>
+										<p class="text-neutral/70">党的团结统一是党的生命，是革命和建设事业取得胜利的根本保证。</p>
+									</div>
+								</div>
+
+								<div class="flex items-start">
+									<div
+										class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+										<div class="circle-content text-secondary">
+											<i class="fa fa-road"></i>
+										</div>
+									</div>
+									<div>
+										<h4 class="font-bold text-primary mb-2">坚持独立自主</h4>
+										<p class="text-neutral/70">把国家和民族发展放在自己力量的基点上，坚持民族自尊心和自信心。</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mt-16 bg-primary/5 p-8 rounded-xl">
+						<h3 class="font-bold text-primary text-xl mb-6 text-center">毛泽东论长征</h3>
+						<blockquote class="text-xl text-center text-neutral/80 italic max-w-4xl mx-auto">
+							"长征是历史记录上的第一次，长征是宣言书，长征是宣传队，长征是播种机。自从盘古开天地，三皇五帝到于今，历史上曾经有过我们这样的长征吗？十二个月光阴中间，天上每日几十架飞机侦察轰炸，地下几十万大军围追堵截，路上遇着了说不尽的艰难险阻，我们却开动了每人的两只脚，长驱二万余里，纵横十一个省。请问历史上曾有过我们这样的长征吗？没有，从来没有的。"
+						</blockquote>
+						<p class="text-center mt-6 text-neutral/70">—— 毛泽东《论反对日本帝国主义的策略》</p>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- 页脚 -->
+		<footer class="bg-dark text-white py-12">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+					<div>
+						<h3 class="text-xl font-bold mb-4">长征精神永放光芒</h3>
+						<p class="text-gray-400">铭记光辉历史，传承红色基因，弘扬长征精神，走好新时代的长征路。</p>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">快速链接</h4>
+						<ul class="space-y-2">
+							<li><a href="index.html#history"
+									class="text-gray-400 hover:text-white transition-colors">历史全景</a></li>
+							<li><a href="a.html" class="text-gray-400 hover:text-white transition-colors">英雄人物</a></li>
+							<li><a href="index.html#spirit"
+									class="text-gray-400 hover:text-white transition-colors">精神解读</a></li>
+							<li><a href="index.html#education"
+									class="text-gray-400 hover:text-white transition-colors">红色育人</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">资源中心</h4>
+						<ul class="space-y-2">
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">长征文献</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">影像资料</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">红色文物</a></li>
+							<li><a href="index.html#resources"
+									class="text-gray-400 hover:text-white transition-colors">互动体验</a></li>
+						</ul>
+					</div>
+
+					<div>
+						<h4 class="font-bold mb-4">联系我们</h4>
+						<ul class="space-y-2">
+							<li class="flex items-center">
+								<i class="fa fa-envelope mr-2 text-gray-400"></i>
+								<span class="text-gray-400">contact@changzheng.edu</span>
+							</li>
+							<li class="flex items-center">
+								<i class="fa fa-phone mr-2 text-gray-400"></i>
+								<span class="text-gray-400">400-123-4567</span>
+							</li>
+							<li class="flex items-center">
+								<i class="fa fa-map-marker mr-2 text-gray-400"></i>
+								<span class="text-gray-400">北京市海淀区高校路1号</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+					<p>© 2023 长征精神永放光芒 - 高校主题教育网站. 保留所有权利.</p>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// 导航栏滚动效果
+			window.addEventListener('scroll', function() {
+				const navbar = document.getElementById('navbar');
+				if (window.scrollY > 50) {
+					navbar.classList.add('shadow-lg');
+				} else {
+					navbar.classList.remove('shadow-lg');
+				}
+			});
+
+			// 移动端菜单切换
+			document.getElementById('menuBtn').addEventListener('click', function() {
+				const mobileMenu = document.getElementById('mobileMenu');
+				if (mobileMenu.classList.contains('-translate-y-full')) {
+					mobileMenu.classList.remove('-translate-y-full');
+				} else {
+					mobileMenu.classList.add('-translate-y-full');
+				}
+			});
+
+			// 平滑滚动
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function(e) {
+					e.preventDefault();
+
+					const targetId = this.getAttribute('href');
+					if (targetId === '#') return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: 'smooth'
+						});
+
+						// 移动端点击链接后关闭菜单
+						const mobileMenu = document.getElementById('mobileMenu');
+						mobileMenu.classList.add('-translate-y-full');
+					}
+				});
+			});
+			// 返回上一页功能
+			document.getElementById('backButton').addEventListener('click', function() {
+				// 检查是否有上一页历史记录
+				if (document.referrer && document.referrer.includes(window.location.host)) {
+					// 如果是从本站的其他页面跳转过来的，返回上一页
+					window.history.back();
+				} else {
+					// 如果是直接访问的，跳转到英雄人物列表页面
+					window.location.href = 'a.html';
+				}
+			});
+		</script>
+	</body>
+</html>

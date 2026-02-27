@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贺子珍与长征 - 长征精神永放光芒</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/tailwind.3.4.16.min.js"></script>
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- tailwind config -->
+    <script src="js/tailwind.config.js"></script>
+    <link href="css/tailwind.page.css" rel="stylesheet" />
+
+    <style>
+        .circle-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .circle-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .circle-text {
+            font-size: 0.7rem;
+            line-height: 1.1;
+            max-width: 80%;
+        }
+
+        .timeline-circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            z-index: 10;
+        }
+
+        .timeline-circle-content {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .timeline-circle .year {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .timeline-circle .month {
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+
+        .stats-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        /* 返回按钮样式 */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: rgb(196 30 58 / 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .back-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .back-button {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-neutral scroll-smooth">
+    <!-- 导航栏 -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="bg-primary/90 backdrop-blur-md text-white shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                <a href="#blanner" class="flex items-center space-x-2">
+                    <i class="fa fa-bookmark text-secondary text-2xl"></i>
+                    <span class="text-xl font-bold">长征精神永放光芒</span>
+                </a>
+
+                <!-- 桌面导航 -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+                    <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+                    <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+                    <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+                    <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+                    <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+                </nav>
+
+                <!-- 移动端菜单按钮 -->
+                <button class="md:hidden text-white text-2xl" id="menuBtn">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div class="md:hidden bg-primary/95 backdrop-blur-md text-white shadow-lg transform -translate-y-full transition-transform duration-300"
+            id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+                <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+                <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+                <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+                <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+                <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+                <a href="#"
+                    class="py-2 px-5 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/80 transition-colors text-center">党史学习教育</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 返回按钮 -->
+    <button class="back-button" id="backButton" title="返回上一页">
+        <i class="fa fa-arrow-left"></i>
+    </button>
+
+    <main class="pt-16">
+        <!-- 英雄区域 -->
+        <section id="heroes-banner"
+            class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="img/titlebg.jpg" alt="长征精神永放光芒" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark/60"></div>
+            </div>
+
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-6 text-shadow">贺子珍与长征</h1>
+                <p class="text-[clamp(1rem,2vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+                    长征中的杰出女性：贺子珍的英勇事迹与革命精神
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#early-life"
+                        class="px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/50 hover:-translate-y-1">早年经历</a>
+                    <a href="#long-march"
+                        class="px-8 py-4 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/90 transition-all shadow-lg hover:shadow-secondary/50 hover:-translate-y-1">长征贡献</a>
+                    <a href="#legacy"
+                        class="px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-white/90 transition-all shadow-lg hover:shadow-white/50 hover:-translate-y-1">历史遗产</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据统计 -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="stats-circle bg-primary/10 text-primary">
+                            <div class="circle-content">
+                                <div class="circle-number">17</div>
+                                <div class="circle-text">处负伤记录</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">负伤次数</h3>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="stats-circle bg-secondary/10 text-secondary">
+                            <div class="circle-content">
+                                <div class="circle-number">30</div>
+                                <div class="circle-text">块体内弹片</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">体内弹片</h3>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="stats-circle bg-primary/10 text-primary">
+                            <div class="circle-content">
+                                <div class="circle-number">1934</div>
+                                <div class="circle-text">年参加长征</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">长征起始</h3>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="stats-circle bg-secondary/10 text-secondary">
+                            <div class="circle-content">
+                                <div class="circle-number">6</div>
+                                <div class="circle-text">个孩子</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">子女数量</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 早年经历 -->
+        <section id="early-life" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="lg:w-1/3">
+                        <div class="rounded-xl overflow-hidden shadow-2xl">
+                            <img src="img/hezijia.jpg" alt="贺子珍" class="w-full h-auto">
+                        </div>
+                        <div class="mt-6 text-center">
+                            <h3 class="text-xl font-bold text-primary">贺子珍 (1909-1984)</h3>
+                            <p class="text-neutral/70">杰出的无产阶级革命家、长征女英雄</p>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-2/3">
+                        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-6">早年革命经历</h2>
+                        <div class="space-y-6">
+                            <div class="bg-light p-6 rounded-lg">
+                                <h3 class="font-bold text-primary text-xl mb-3">少年觉醒</h3>
+                                <p class="text-neutral/70">
+                                    贺子珍1909年出生于江西省永新县。她出身于书香门第，从小接受良好教育。1925年，年仅16岁的贺子珍加入中国共产主义青年团，开始接触革命思想。她与妹妹贺怡一起，成为永新县最早的女共产党员之一。
+                                </p>
+                            </div>
+
+                            <div class="bg-light p-6 rounded-lg">
+                                <h3 class="font-bold text-primary text-xl mb-3">投身革命</h3>
+                                <p class="text-neutral/70">
+                                    1927年，贺子珍参与领导永新农民武装暴动，随后跟随起义部队上井冈山，成为井冈山革命根据地第一位女党员。在井冈山期间，她担任毛泽东的秘书，协助处理日常事务，并参与根据地的妇女工作和宣传工作。
+                                </p>
+                            </div>
+
+                            <div class="bg-light p-6 rounded-lg">
+                                <h3 class="font-bold text-primary text-xl mb-3">革命伴侣</h3>
+                                <p class="text-neutral/70">
+                                    在井冈山艰苦的斗争环境中，贺子珍与毛泽东相识相知，于1928年结为革命伴侣。在随后的岁月里，她不仅是毛泽东生活上的伴侣，更是他革命事业上的得力助手，共同经历了中国革命最艰难的时期。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 长征贡献 -->
+        <section id="long-march" class="py-20 bg-neutral/5">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">贺子珍在长征中的英勇事迹</h2>
+                    <p class="text-lg text-neutral/80 max-w-3xl mx-auto">巾帼不让须眉：长征路上的女英雄</p>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">英勇负伤</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">为掩护战友身负重伤</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            1935年4月，红军长征途中在贵州盘县遭遇敌机轰炸。贺子珍在敌机俯冲时，不顾个人安危，奋不顾身地掩护受伤的师政委钟赤兵，自己却被炸弹炸成重伤，全身17处负伤，生命垂危。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>全身17处负伤，血流如注</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>头部和背部嵌入多块弹片</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>在缺医少药的情况下顽强坚持</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">坚强意志</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">以惊人毅力坚持行军</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            尽管身负重伤，贺子珍仍然以惊人的毅力坚持跟随部队行军。在没有麻药的情况下，她忍受着剧痛，让医生用镊子一块一块地取出体表的弹片，而深层的弹片则永远留在了她的身体里。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>体内残留的弹片伴随她一生</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>伤痛使她经常头痛、失眠</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>但她从未抱怨，始终保持革命乐观主义</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">女性力量</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">长征中的女性代表</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            贺子珍是参加长征的30位女红军之一，她们以坚韧不拔的意志和无私奉献的精神，在极其艰苦的条件下，与男同志一样跋山涉水、冲锋陷阵，展现了革命女性的非凡勇气和坚强品格。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>长征中30位女红军之一</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>在干部休养连担任政治战士</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>负责照顾伤员、宣传鼓动工作</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">母爱伟大</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">长征中的母亲</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            长征开始时，贺子珍已怀有身孕。在极其艰难的行军条件下，她先后生下了两个孩子，但都因战争环境不得不寄养在老乡家中，从此骨肉分离。这种母爱的牺牲，体现了革命者为大家舍小家的崇高精神。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>长征途中生下两个孩子</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>为革命事业骨肉分离</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>体现革命母亲的无私奉献</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-16 bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="font-bold text-primary text-xl mb-6 text-center">贺子珍的革命品质</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center p-4">
+                            <div
+                                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">无私奉献</div>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-primary mb-2">无私奉献精神</h4>
+                            <p class="text-sm text-neutral/70">为革命事业牺牲个人幸福，包括与子女的骨肉分离</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div
+                                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">坚韧不拔</div>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-primary mb-2">坚韧不拔意志</h4>
+                            <p class="text-sm text-neutral/70">身负重伤仍坚持长征，体内弹片伴随终生而无怨无悔</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div
+                                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">战友情怀</div>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-primary mb-2">深厚战友情怀</h4>
+                            <p class="text-sm text-neutral/70">危急时刻舍身掩护战友，体现革命同志间的深厚情谊</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 长征时间线 -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">贺子珍长征时间线</h2>
+                    <p class="text-lg text-neutral/80 max-w-3xl mx-auto">重要历史节点与英勇事迹</p>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+                </div>
+
+                <div class="relative">
+                    <!-- 时间线中轴线 -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+
+                    <!-- 时间线项目 -->
+                    <div class="timeline-container relative z-10 space-y-16">
+                        <!-- 1934年10月 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                    <h3 class="text-xl font-bold mb-2 text-primary">踏上长征路</h3>
+                                    <p class="text-gray-600 mb-2 text-primary">1934年10月</p>
+                                    <p>贺子珍随中央红军从瑞金出发，开始长征。当时她已怀有身孕，但仍然坚持与部队一起行军。</p>
+                                </div>
+                                <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                    <div class="timeline-circle bg-primary">
+                                        <div class="timeline-circle-content">
+                                            <div class="year">1934</div>
+                                            <div class="month">10月</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                    <div class="bg-light p-4 rounded-lg">
+                                        <h4 class="font-bold text-primary mb-2">坚强母亲</h4>
+                                        <p class="text-sm">怀有身孕仍坚持长征</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 1935年2月 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+                                    <div class="bg-light p-4 rounded-lg">
+                                        <h4 class="font-bold text-primary mb-2">骨肉分离</h4>
+                                        <p class="text-sm">为革命牺牲母子亲情</p>
+                                    </div>
+                                </div>
+                                <div class="md:w-12 flex justify-center order-2">
+                                    <div class="timeline-circle bg-primary">
+                                        <div class="timeline-circle-content">
+                                            <div class="year">1935</div>
+                                            <div class="month">2月</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                    <h3 class="text-xl font-bold mb-2 text-primary">生下女儿</h3>
+                                    <p class="text-gray-600 mb-2 text-primary">1935年2月</p>
+                                    <p>在长征途中，贺子珍生下一个女孩。由于战争环境残酷，不得不将孩子寄养在贵州一户老乡家中，从此骨肉分离。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 1935年4月 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                    <h3 class="text-xl font-bold mb-2 text-primary">英勇负伤</h3>
+                                    <p class="text-gray-600 mb-2 text-primary">1935年4月</p>
+                                    <p>在贵州盘县，贺子珍为掩护战友钟赤兵，遭敌机轰炸身负重伤，全身17处受伤，生命垂危。</p>
+                                </div>
+                                <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                    <div class="timeline-circle bg-secondary">
+                                        <div class="timeline-circle-content">
+                                            <div class="year">1935</div>
+                                            <div class="month">4月</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                    <div class="bg-light p-4 rounded-lg">
+                                        <h4 class="font-bold text-primary mb-2">英雄壮举</h4>
+                                        <p class="text-sm">舍身掩护战友</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 1935年10月 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+                                    <div class="bg-light p-4 rounded-lg">
+                                        <h4 class="font-bold text-primary mb-2">胜利到达</h4>
+                                        <p class="text-sm">完成长征壮举</p>
+                                    </div>
+                                </div>
+                                <div class="md:w-12 flex justify-center order-2">
+                                    <div class="timeline-circle bg-primary">
+                                        <div class="timeline-circle-content">
+                                            <div class="year">1935</div>
+                                            <div class="month">10月</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                    <h3 class="text-xl font-bold mb-2 text-primary">抵达陕北</h3>
+                                    <p class="text-gray-600 mb-2 text-primary">1935年10月</p>
+                                    <p>贺子珍以惊人的毅力坚持走完长征，随中央红军到达陕北。尽管身负重伤，她仍然坚持革命工作。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 历史意义 -->
+        <section id="legacy" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">贺子珍长征精神的历史意义</h2>
+                    <p class="text-lg text-neutral/80 max-w-3xl mx-auto">巾帼英雄：长征精神中的女性力量</p>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="font-bold text-primary text-xl mb-6">贺子珍的历史贡献</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-primary">
+                                        <i class="fa fa-female"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">长征女英雄代表</h4>
+                                    <p class="text-neutral/70">贺子珍是长征中30位女红军的杰出代表，她们以坚韧不拔的意志走完了二万五千里长征，创造了人类历史上的奇迹。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-primary">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">革命母亲典范</h4>
+                                    <p class="text-neutral/70">
+                                        贺子珍在长征途中生下孩子却不得不骨肉分离，体现了革命者为大家舍小家的崇高精神，是革命母亲的典范。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-primary">
+										<i class="fa fa-users text-xl mb-1"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">战友情深楷模</h4>
+                                    <p class="text-neutral/70">
+                                        贺子珍为掩护战友身负重伤，体现了革命同志间深厚的战友情谊，是团结互助、舍己为人精神的生动写照。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-primary text-xl mb-6">贺子珍精神的当代价值</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-secondary">
+                                        <i class="fa fa-book text-2xl mb-1"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">坚韧不拔的意志</h4>
+                                    <p class="text-neutral/70">贺子珍身负重伤仍坚持长征的毅力，激励我们在面对困难时要坚韧不拔、勇往直前。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-secondary">
+                                        <i class="fa fa-flag"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">无私奉献精神</h4>
+                                    <p class="text-neutral/70">贺子珍为革命事业牺牲个人幸福的精神，教育我们要有大局观念和奉献精神。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-secondary">
+                                        <i class="fa fa-venus"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">女性力量的彰显</h4>
+                                    <p class="text-neutral/70">贺子珍的事迹彰显了女性在历史进程中的重要作用，激励当代女性发挥自身价值。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 bg-primary/5 p-8 rounded-xl">
+                    <h3 class="font-bold text-primary text-xl mb-6 text-center">后人评价贺子珍</h3>
+                    <blockquote class="text-xl text-center text-neutral/80 italic max-w-4xl mx-auto">
+                        "贺子珍同志是坚强的共产主义战士，她的一生是革命的一生，战斗的一生。在长征那样极端艰苦的条件下，她以惊人的毅力战胜了伤病，走完了二万五千里征程。她为掩护战友身负重伤，体内残留的弹片伴随她终生，但她从未向组织提出过任何特殊要求。她是一位真正的女英雄，她的革命精神永远值得我们学习和纪念。"
+                    </blockquote>
+                    <p class="text-center mt-6 text-neutral/70">—— 革命后代对贺子珍的评价</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">长征精神永放光芒</h3>
+                    <p class="text-gray-400">铭记光辉历史，传承红色基因，弘扬长征精神，走好新时代的长征路。</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#history"
+                                class="text-gray-400 hover:text-white transition-colors">历史全景</a></li>
+                        <li><a href="a.html" class="text-gray-400 hover:text-white transition-colors">英雄人物</a></li>
+                        <li><a href="index.html#spirit"
+                                class="text-gray-400 hover:text-white transition-colors">精神解读</a></li>
+                        <li><a href="index.html#education"
+                                class="text-gray-400 hover:text-white transition-colors">红色育人</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">资源中心</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">长征文献</a></li>
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">历史影像</a></li>
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">红色地图</a></li>
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">互动体验</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">联系我们</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2"></i>
+                            <span>contact@changzheng.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2"></i>
+                            <span>+86 010-12345678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker-alt mr-2"></i>
+                            <span>北京市西城区</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 长征精神永放光芒 - 传承红色基因，弘扬革命精神</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-primary', 'shadow-lg');
+                navbar.classList.remove('bg-primary/90');
+            } else {
+                navbar.classList.remove('bg-primary', 'shadow-lg');
+                navbar.classList.add('bg-primary/90');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('menuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('-translate-y-full')) {
+                mobileMenu.classList.remove('-translate-y-full');
+            } else {
+                mobileMenu.classList.add('-translate-y-full');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 卡片悬停效果
+        document.querySelectorAll('.hover-scale').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-5px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+		
+		// 返回上一页功能
+		document.getElementById('backButton').addEventListener('click', function() {
+			// 检查是否有上一页历史记录
+			if (document.referrer && document.referrer.includes(window.location.host)) {
+				// 如果是从本站的其他页面跳转过来的，返回上一页
+				window.history.back();
+			} else {
+				// 如果是直接访问的，跳转到英雄人物列表页面
+				window.location.href = 'a.html';
+			}
+		});
+    </script>
+</body>
+</html>

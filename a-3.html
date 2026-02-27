@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>朱德与长征 - 长征精神永放光芒</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/tailwind.3.4.16.min.js"></script>
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- tailwind config -->
+    <script src="js/tailwind.config.js"></script>
+    <link href="css/tailwind.page.css" rel="stylesheet" />
+
+    <style>
+        .circle-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .circle-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .circle-text {
+            font-size: 0.7rem;
+            line-height: 1.1;
+            max-width: 80%;
+        }
+
+        .timeline-circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            z-index: 10;
+        }
+
+        .timeline-circle-content {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .timeline-circle .year {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .timeline-circle .month {
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+
+        .stats-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        /* 返回按钮样式 */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: rgb(196 30 58 / 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .back-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .back-button {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-neutral scroll-smooth">
+    <!-- 导航栏 -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="bg-primary/90 backdrop-blur-md text-white shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                <a href="#blanner" class="flex items-center space-x-2">
+                    <i class="fa fa-bookmark text-secondary text-2xl"></i>
+                    <span class="text-xl font-bold">长征精神永放光芒</span>
+                </a>
+
+                <!-- 桌面导航 -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+                    <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+                    <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+                    <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+                    <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+                    <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+                </nav>
+
+                <!-- 移动端菜单按钮 -->
+                <button class="md:hidden text-white text-2xl" id="menuBtn">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 移动端导航菜单 -->
+        <div class="md:hidden bg-primary/95 backdrop-blur-md text-white shadow-lg transform -translate-y-full transition-transform duration-300"
+            id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="index.html#history" class="hover:text-secondary transition-colors">历史全景</a>
+                <a href="index.html#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+                <a href="index.html#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+                <a href="index.html#education" class="hover:text-secondary transition-colors">红色育人</a>
+                <a href="index.html#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+                <a href="index.html#about" class="hover:text-secondary transition-colors">关于我们</a>
+                <a href="#"
+                    class="py-2 px-5 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/80 transition-colors text-center">党史学习教育</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 返回按钮 -->
+    <button class="back-button" id="backButton" title="返回上一页">
+        <i class="fa fa-arrow-left"></i>
+    </button>
+
+    <main class="pt-16">
+        <!-- 英雄区域 -->
+        <section id="heroes-banner"
+            class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="img/titlebg.jpg" alt="长征精神永放光芒" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark/60"></div>
+            </div>
+
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-6 text-shadow">朱德与长征</h1>
+                <p class="text-[clamp(1rem,2vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+                    红军之父在长征中的卓越贡献与历史意义
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#early-life"
+                        class="px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/50 hover:-translate-y-1">早年经历</a>
+                    <a href="#long-march"
+                        class="px-8 py-4 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/90 transition-all shadow-lg hover:shadow-secondary/50 hover:-translate-y-1">长征贡献</a>
+                    <a href="#legacy"
+                        class="px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-white/90 transition-all shadow-lg hover:shadow-white/50 hover:-translate-y-1">历史遗产</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据统计 -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="stats-circle bg-primary/10 text-primary">
+                            <div class="circle-content">
+                                <div class="circle-number">25,000</div>
+                                <div class="circle-text">里长征路程</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">长征里程</h3>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="stats-circle bg-secondary/10 text-secondary">
+                            <div class="circle-content">
+                                <div class="circle-number">368</div>
+                                <div class="circle-text">天行军时间</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">行军天数</h3>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="stats-circle bg-primary/10 text-primary">
+                            <div class="circle-content">
+                                <div class="circle-number">11</div>
+                                <div class="circle-text">个省份跨越</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">途经省份</h3>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="stats-circle bg-secondary/10 text-secondary">
+                            <div class="circle-content">
+                                <div class="circle-number">600</div>
+                                <div class="circle-text">余次重要战斗</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-primary">重要战斗</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 早年经历 -->
+        <section id="early-life" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="lg:w-1/3">
+                        <div class="rounded-xl overflow-hidden shadow-2xl">
+                            <img src="img/zhude.png" alt="朱德" class="w-full h-auto">
+                        </div>
+                        <div class="mt-6 text-center">
+                            <h3 class="text-xl font-bold text-primary">朱德 (1886-1976)</h3>
+                            <p class="text-neutral/70">伟大的无产阶级革命家、军事家、政治家</p>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-2/3">
+                        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-6">早年革命经历</h2>
+                        <div class="space-y-6">
+                            <div class="bg-light p-6 rounded-lg">
+                                <h3 class="font-bold text-primary text-xl mb-3">从军与思想转变</h3>
+                                <p class="text-neutral/70">
+                                    朱德1886年出生于四川仪陇。早年参加辛亥革命和护国战争，曾任滇军旅长。在探索救国道路的过程中，他逐渐接受了马克思主义思想，并于1922年赴德国留学，在柏林结识周恩来并加入中国共产党。
+                                </p>
+                            </div>
+
+                            <div class="bg-light p-6 rounded-lg">
+                                <h3 class="font-bold text-primary text-xl mb-3">参与南昌起义</h3>
+                                <p class="text-neutral/70">
+                                    1927年，朱德参与领导南昌起义，任第九军副军长。起义失败后，他率领余部转战湘南，保存了革命火种。随后与毛泽东在井冈山会师，创建了中国工农红军第四军，任军长。
+                                </p>
+                            </div>
+
+                            <div class="bg-light p-6 rounded-lg">
+                                <h3 class="font-bold text-primary text-xl mb-3">创建革命根据地</h3>
+                                <p class="text-neutral/70">
+                                    在井冈山和中央苏区时期，朱德与毛泽东并肩作战，共同指挥红军粉碎国民党多次"围剿"。他注重军队建设，强调官兵平等，关心士兵生活，被广大红军指战员亲切地称为"朱老总"。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 长征贡献 -->
+        <section id="long-march" class="py-20 bg-neutral/5">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">朱德在长征中的卓越贡献</h2>
+                    <p class="text-lg text-neutral/80 max-w-3xl mx-auto">红军之父：朱德如何带领红军走向胜利</p>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">团结部队</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">维护红军团结统一</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            长征途中，朱德始终以大局为重，坚决维护党和红军的团结统一。在张国焘分裂党和红军的危急时刻，他坚持原则，耐心说服教育，为维护红军的团结作出了重要贡献。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>坚决反对张国焘的分裂活动</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>耐心说服红四方面军干部北上</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>维护了党和红军的团结统一</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">军事指挥</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">卓越军事指挥才能</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            朱德在长征中展现了卓越的军事指挥才能，特别是在强渡大渡河、飞夺泸定桥等关键战役中，他亲临前线指挥，为红军突破天险、摆脱追敌立下了汗马功劳。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>指挥强渡大渡河，打破敌军围堵</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>组织飞夺泸定桥，创造战争奇迹</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>参与指挥四渡赤水等关键战役</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">官兵关系</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">关心爱护官兵</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            朱德在长征途中始终与士兵同甘共苦，关心战士生活，经常把自己的马让给伤病员骑，把自己的粮食分给战士吃，深受广大红军指战员的爱戴。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>与士兵同甘共苦，不搞特殊化</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>关心伤病员，经常让马给伤病员骑</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>把自己的粮食分给战士，与士兵共渡难关</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">政治工作</div>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-primary text-xl">加强政治工作</h3>
+                        </div>
+                        <p class="text-neutral/70 mb-4">
+                            朱德高度重视军队政治工作，在长征途中积极开展思想政治工作，鼓舞士气，坚定信念，为红军战胜艰难险阻提供了强大的精神动力。
+                        </p>
+                        <ul class="space-y-2 text-neutral/70">
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>开展思想政治工作，鼓舞士气</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>宣传北上抗日方针，坚定革命信念</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                <span>加强纪律教育，维护军队纪律</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-16 bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="font-bold text-primary text-xl mb-6 text-center">朱德军事思想的核心内容</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center p-4">
+                            <div
+                                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">人民军队</div>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-primary mb-2">人民军队思想</h4>
+                            <p class="text-sm text-neutral/70">"我们的军队是人民的军队，是保护人民利益的军队"</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div
+                                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">灵活机动</div>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-primary mb-2">灵活机动战略战术</h4>
+                            <p class="text-sm text-neutral/70">"有什么枪打什么仗，对什么敌人打什么仗，在什么时间地点打什么时间地点的仗"</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div
+                                class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div class="circle-content text-primary">
+                                    <div class="circle-text">官兵一致</div>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-primary mb-2">官兵一致原则</h4>
+                            <p class="text-sm text-neutral/70">"官兵一致，上下一致，军民一致，这是我军政治工作的基本原则"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 长征时间线 -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">朱德长征时间线</h2>
+                    <p class="text-lg text-neutral/80 max-w-3xl mx-auto">重要历史节点与关键决策</p>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+                </div>
+
+                <div class="relative">
+                    <!-- 时间线中轴线 -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+
+                    <!-- 时间线项目 -->
+                    <div class="timeline-container relative z-10 space-y-16">
+                        <!-- 1934年10月 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                    <h3 class="text-xl font-bold mb-2 text-primary">瑞金出发</h3>
+                                    <p class="text-gray-600 mb-2 text-primary">1934年10月</p>
+                                    <p>中央红军主力从瑞金等地出发，开始长征。朱德任中央革命军事委员会主席、中国工农红军总司令，随中央纵队行动。</p>
+                                </div>
+                                <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                    <div class="timeline-circle bg-primary">
+                                        <div class="timeline-circle-content">
+                                            <div class="year">1934</div>
+                                            <div class="month">10月</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                    <div class="bg-light p-4 rounded-lg">
+                                        <h4 class="font-bold text-primary mb-2">关键决策</h4>
+                                        <p class="text-sm">朱德参与决策红军战略转移</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 1935年1月 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+                                    <div class="bg-light p-4 rounded-lg">
+                                        <h4 class="font-bold text-primary mb-2">历史转折</h4>
+                                        <p class="text-sm">朱德支持毛泽东的正确主张</p>
+                                    </div>
+                                </div>
+                                <div class="md:w-12 flex justify-center order-2">
+                                    <div class="timeline-circle bg-primary">
+                                        <div class="timeline-circle-content">
+                                            <div class="year">1935</div>
+                                            <div class="month">1月</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                                    <h3 class="text-xl font-bold mb-2 text-primary">遵义会议</h3>
+                                    <p class="text-gray-600 mb-2 text-primary">1935年1月</p>
+                                    <p>遵义会议上，朱德坚决支持毛泽东的正确主张，为确立毛泽东在党中央和红军的领导地位发挥了重要作用。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 1935年5月 -->
+                        <div class="timeline-item relative">
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                                    <h3 class="text-xl font-bold mb-2 text-primary">强渡大渡河</h3>
+                                    <p class="text-gray-600 mb-2 text-primary">1935年5月</p>
+                                    <p>朱德亲临前线指挥强渡大渡河，组织红军勇士奋勇渡河，打破敌军围堵，为红军北上开辟了道路。</p>
+                                </div>
+                                <div class="md:w-12 flex justify-center order-1 md:order-2">
+                                    <div class="timeline-circle bg-secondary">
+                                        <div class="timeline-circle-content">
+                                            <div class="year">1935</div>
+                                            <div class="month">5月</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                                    <div class="bg-light p-4 rounded-lg">
+                                        <h4 class="font-bold text-primary mb-2">军事杰作</h4>
+                                        <p class="text-sm">强渡天险的经典战例</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 历史意义 -->
+        <section id="legacy" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">朱德长征精神的历史意义</h2>
+                    <p class="text-lg text-neutral/80 max-w-3xl mx-auto">红军之父：朱德精神的当代价值</p>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="font-bold text-primary text-xl mb-6">朱德在长征中的历史贡献</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-primary">
+                                        <i class="fa fa-flag"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">维护红军团结</h4>
+                                    <p class="text-neutral/70">在张国焘分裂党和红军的危急时刻，朱德坚持原则，耐心说服教育，为维护红军的团结统一作出了不可磨灭的贡献。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-primary">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">卓越军事指挥</h4>
+                                    <p class="text-neutral/70">
+                                        朱德在长征中展现了卓越的军事指挥才能，特别是在强渡大渡河、飞夺泸定桥等关键战役中，他亲临前线指挥，为红军突破天险立下了汗马功劳。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-primary">
+                                        <i class="fa fa-book"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">关心爱护官兵</h4>
+                                    <p class="text-neutral/70">
+                                        朱德在长征途中始终与士兵同甘共苦，关心战士生活，经常把自己的马让给伤病员骑，把自己的粮食分给战士吃，深受广大红军指战员的爱戴。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-primary text-xl mb-6">朱德精神的当代价值</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-secondary">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">坚定理想信念</h4>
+                                    <p class="text-neutral/70">朱德一生追求真理，坚定共产主义信念，即使在最困难的时刻也从未动摇，为我们树立了坚定理想信念的榜样。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-secondary">
+                                        <i class="fa fa-handshake text-2xl mb-1"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">维护团结统一</h4>
+                                    <p class="text-neutral/70">朱德始终以大局为重，坚决维护党和军队的团结统一，这种高度的党性原则和组织观念值得我们学习。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mr-4">
+                                    <div class="circle-content text-secondary">
+                                        <i class="fa fa-road"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-primary mb-2">密切联系群众</h4>
+                                    <p class="text-neutral/70">朱德始终保持与人民群众的血肉联系，关心士兵，爱护百姓，这种优良作风是我们党的宝贵财富。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 bg-primary/5 p-8 rounded-xl">
+                    <h3 class="font-bold text-primary text-xl mb-6 text-center">朱德论长征</h3>
+                    <blockquote class="text-xl text-center text-neutral/80 italic max-w-4xl mx-auto">
+                        "长征是伟大的，长征的胜利是中国革命转危为安的关键。长征中，我们党和红军经受了严峻的考验，证明中国共产党和中国工农红军是不可战胜的。长征的胜利，是毛泽东同志正确领导的胜利，是全党全军团结奋斗的胜利。"
+                    </blockquote>
+                    <p class="text-center mt-6 text-neutral/70">—— 朱德《回忆长征》</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">长征精神永放光芒</h3>
+                    <p class="text-gray-400">铭记光辉历史，传承红色基因，弘扬长征精神，走好新时代的长征路。</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#history"
+                                class="text-gray-400 hover:text-white transition-colors">历史全景</a></li>
+                        <li><a href="a.html" class="text-gray-400 hover:text-white transition-colors">英雄人物</a></li>
+                        <li><a href="index.html#spirit"
+                                class="text-gray-400 hover:text-white transition-colors">精神解读</a></li>
+                        <li><a href="index.html#education"
+                                class="text-gray-400 hover:text-white transition-colors">红色育人</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">资源中心</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">长征文献</a></li>
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">影像资料</a></li>
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">红色文物</a></li>
+                        <li><a href="index.html#resources"
+                                class="text-gray-400 hover:text-white transition-colors">互动体验</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">contact@changzheng.edu</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">400-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-map-marker mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">北京市西城区长安街</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 长征精神永放光芒 - 传承红色基因，弘扬革命精神</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-primary', 'shadow-lg');
+                navbar.classList.remove('bg-primary/90');
+            } else {
+                navbar.classList.remove('bg-primary', 'shadow-lg');
+                navbar.classList.add('bg-primary/90');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('menuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('-translate-y-full')) {
+                mobileMenu.classList.remove('-translate-y-full');
+            } else {
+                mobileMenu.classList.add('-translate-y-full');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+		// 返回上一页功能
+		document.getElementById('backButton').addEventListener('click', function() {
+			// 检查是否有上一页历史记录
+			if (document.referrer && document.referrer.includes(window.location.host)) {
+				// 如果是从本站的其他页面跳转过来的，返回上一页
+				window.history.back();
+			} else {
+				// 如果是直接访问的，跳转到英雄人物列表页面
+				window.location.href = 'a.html';
+			}
+		});
+    </script>
+</body>
+</html>

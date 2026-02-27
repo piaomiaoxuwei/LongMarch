@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>长征精神永放光芒 - 高校主题教育网站</title>
+		<script src="js/jquery-3.7.1.min.js"></script>
+		<script src="js/tailwind.3.4.16.min.js"></script>
+		<link href="css/font-awesome.min.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+		<!-- tailwind config -->
+		<script src="js/tailwind.config.js"></script>
+		<link href="css/tailwind.page.css" rel="stylesheet" />
+
+		<!-- Chart -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+	</head>
+	<body class="font-inter bg-light text-neutral scroll-smooth">
+		<!-- 导航栏 -->
+		<header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+			<div class="bg-primary/90 backdrop-blur-md text-white shadow-lg">
+				<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+					<a href="#blanner" class="flex items-center space-x-2">
+						<i class="fa fa-bookmark text-secondary text-2xl"></i>
+						<span class="text-xl font-bold">长征精神永放光芒</span>
+					</a>
+
+					<!-- 桌面导航 -->
+					<nav class="hidden md:flex items-center space-x-8">
+						<a href="#history" class="hover:text-secondary transition-colors">历史全景</a>
+						<a href="#heroes" class="hover:text-secondary transition-colors">英雄人物</a>
+						<a href="#spirit" class="hover:text-secondary transition-colors">精神解读</a>
+						<a href="#education" class="hover:text-secondary transition-colors">红色育人</a>
+						<a href="#resources" class="hover:text-secondary transition-colors">资源库与互动</a>
+						<a href="#about" class="hover:text-secondary transition-colors">关于我们</a>
+					</nav>
+
+					<!-- 移动端菜单按钮 -->
+					<button class="md:hidden text-white text-2xl" id="menuBtn">
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+			</div>
+
+			<!-- 移动端导航菜单 -->
+			<div class="md:hidden bg-primary/95 backdrop-blur-md text-white shadow-lg transform -translate-y-full transition-transform duration-300" id="mobileMenu">
+				<div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+					<a href="#history" class="py-2 hover:text-secondary transition-colors">历史全景</a>
+					<a href="#heroes" class="py-2 hover:text-secondary transition-colors">英雄人物</a>
+					<a href="#spirit" class="py-2 hover:text-secondary transition-colors">精神解读</a>
+					<a href="#education" class="py-2 hover:text-secondary transition-colors">红色育人</a>
+					<a href="#resources" class="py-2 hover:text-secondary transition-colors">资源库与互动</a>
+					<a href="#about" class="py-2 hover:text-secondary transition-colors">关于我们</a>
+					<a href="#" class="py-2 px-5 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/80 transition-colors text-center">党史学习教育</a>
+				</div>
+			</div>
+		</header>
+
+		<main class="pt-16">
+			<!-- 英雄区域 -->
+			<section id="blanner" class="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+				<div class="absolute inset-0 z-0">
+					<img src="img/titlebg.jpg" alt="长征精神永放光芒" class="w-full h-full object-cover">
+					<div class="absolute inset-0 bg-dark/60"></div>
+				</div>
+				
+				<div class="container mx-auto px-4 relative z-10 text-center">
+					<p class="flex flex-col sm:flex-row items-center justify-center mb-11"><img src="img/title.png" /></p>
+					<p class="text-[clamp(1rem,2vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 text-shadow">
+						传承红色基因，弘扬长征精神<br />
+						<a href="#history" class="text-white text-3xl"><i class="fa fa-angle-down"></i></a>
+					</p>
+					<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+						<a href="#history" class="px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/50 hover:-translate-y-1">走进长征历史</a>
+						<a href="#education" class="px-8 py-4 bg-secondary text-primary rounded-full font-semibold hover:bg-secondary/90 transition-all shadow-lg hover:shadow-secondary/50 hover:-translate-y-1">高校育人实践</a>
+						
+					</div>
+				</div>
+			</section>
+
+			<!-- 长征历史全景 -->
+			<section id="history" class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">长征历史全景</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">筑牢史实根基，重温那段艰苦卓绝的伟大征程</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+					
+					<!-- 时间线 -->
+					<div class="mb-20">
+						<h3 class="text-2xl font-bold text-center mb-10">长征时间线</h3>
+						<div class="relative">
+							<!-- 时间线中轴线 -->
+							<div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+							
+							<!-- 时间线项目 -->
+							<div class="timeline-container relative z-10">
+								<!-- 1934年10月 - 出发 -->
+								<div class="timeline-item mb-16 relative">
+									<div class="flex flex-col md:flex-row items-center">
+										<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+											<h3 class="text-xl font-bold mb-2 text-primary">中央红军开始长征</h3>
+											<p class="text-gray-600 mb-2 text-primary">1934年10月</p>
+											<p>中央红军主力五个军团及中央、军委机关和部队共8.6万余人，从瑞金、于都等地出发，被迫实行战略性转移，开始长征。</p>
+										</div>
+										<div class="md:w-12 flex justify-center order-1 md:order-2">
+											<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+												<i class="fa fa-flag"></i>
+											</div>
+										</div>
+										<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+											<img src="img/time-line-01.jpg" alt="中央红军开始长征" class="rounded-lg shadow-md">
+										</div>
+									</div>
+								</div>
+								
+								<!-- 1935年1月 - 遵义会议 -->
+								<div class="timeline-item mb-16 relative">
+									<div class="flex flex-col md:flex-row items-center">
+										<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+											<img src="img/time-line-02.jpg" alt="遵义会议召开" class="rounded-lg shadow-md">
+										</div>
+										<div class="md:w-12 flex justify-center order-2">
+											<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+												<i class="fa fa-comments"></i>
+											</div>
+										</div>
+										<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+											<h3 class="text-xl font-bold mb-2 text-primary">遵义会议召开</h3>
+											<p class="text-gray-600 mb-2 text-primary">1935年1月</p>
+											<p>遵义会议确立了毛泽东在党中央和红军的领导地位，挽救了党、挽救了红军、挽救了中国革命，是中国共产党历史上一个生死攸关的转折点。</p>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 1935年5月 - 巧渡金沙江 -->
+								<div class="timeline-item mb-16 relative">
+									<div class="flex flex-col md:flex-row items-center">
+										<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+											<h3 class="text-xl font-bold mb-2 text-primary">巧渡金沙江</h3>
+											<p class="text-gray-600 mb-2 text-primary">1935年5月</p>
+											<p>中央红军主力利用7条木船，在7天7夜的时间里，全部渡过金沙江，摆脱了几十万国民党军的围追堵截，取得了战略转移中具有决定意义的胜利。</p>
+										</div>
+										<div class="md:w-12 flex justify-center order-1 md:order-2">
+											<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+												<i class="fa fa-ship"></i>
+											</div>
+										</div>
+										<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+											<img src="img/time-line-03.jpg" alt="巧渡金沙江" class="rounded-lg shadow-md">
+										</div>
+									</div>
+								</div>
+								
+								<!-- 1935年5月 - 强渡大渡河 飞夺泸定桥 -->
+								<div class="timeline-item mb-16 relative">
+									<div class="flex flex-col md:flex-row items-center">
+										<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+											<img src="img/time-line-04.jpg" alt="飞夺泸定桥" class="rounded-lg shadow-md">
+										</div>
+										<div class="md:w-12 flex justify-center order-2">
+											<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+												<i class="fa fa-balance-scale"></i>
+											</div>
+										</div>
+										<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+											<h3 class="text-xl font-bold mb-2 text-primary">强渡大渡河，飞夺泸定桥</h3>
+											<p class="text-gray-600 mb-2 text-primary">1935年5月</p>
+											<p>红军在安顺场强渡大渡河后，以2昼夜疾行240华里的速度，奔袭并攻克了泸定桥，打破了蒋介石妄图把红军变成第二个石达开的反革命迷梦。</p>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 1935年6月-8月 - 过雪山草地 -->
+								<div class="timeline-item mb-16 relative">
+									<div class="flex flex-col md:flex-row items-center">
+										<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+											<h3 class="text-xl font-bold mb-2 text-primary">翻越夹金山，过草地</h3>
+											<p class="text-gray-600 mb-2 text-primary">1935年6月-8月</p>
+											<p>红军攻克天险腊子口，翻越终年积雪的夹金山，与红四方面军会师。随后，红军又克服重重困难，穿越了人迹罕至的沼泽地，付出了巨大牺牲。</p>
+										</div>
+										<div class="md:w-12 flex justify-center order-1 md:order-2">
+											<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+												<i class="fa fa-tree"></i>
+											</div>
+										</div>
+										<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+											<img src="img/time-line-05.jpg" alt="红军过雪山草地" class="rounded-lg shadow-md">
+										</div>
+									</div>
+								</div>
+								
+								<!-- 1935年10月 - 吴起镇会师 -->
+								<div class="timeline-item mb-16 relative">
+									<div class="flex flex-col md:flex-row items-center">
+										<div class="md:w-1/2 md:pr-12 hidden md:block order-1">
+											<img src="img/time-line-06.jpg" alt="吴起镇会师" class="rounded-lg shadow-md">
+										</div>
+										<div class="md:w-12 flex justify-center order-2">
+											<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10">
+												<i class="fa fa-users"></i>
+											</div>
+										</div>
+										<div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+											<h3 class="text-xl font-bold mb-2 text-primary">中央红军到达吴起镇</h3>
+											<p class="text-gray-600 mb-2 text-primary">1935年10月</p>
+											<p>中央红军到达陕北吴起镇，与陕北红军胜利会师。至此，中央红军的长征，纵横十一个省，行程二万五千里，终于顺利结束。</p>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 1936年10月 - 三大主力会师 -->
+								<div class="timeline-item relative">
+									<div class="flex flex-col md:flex-row items-center">
+										<div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+											<h3 class="text-xl font-bold mb-2 text-primary">红军三大主力会师</h3>
+											<p class="text-gray-600 mb-2 text-primary">1936年10月</p>
+											<p>红二、四方面军到达甘肃会宁地区，同红一方面军会师。红军三大主力会师，标志着长征的全面胜利，这是中国革命转危为安的关键。</p>
+										</div>
+										<div class="md:w-12 flex justify-center order-1 md:order-2">
+											<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white z-10">
+												<i class="fa fa-star"></i>
+											</div>
+										</div>
+										<div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+											<img src="img/time-line-07.jpg" alt="红军三大主力会师" class="rounded-lg shadow-md">
+										</div>
+									</div>
+								</div>
+							</div>                                  
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 交互式地图部分 -->
+			<section id="map" class="py-20 bg-gray-50">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-3xl md:text-4xl font-bold mb-4">长征路线图</h2>
+						<p class="text-gray-600 max-w-2xl mx-auto">点击地图上的标记点，查看长征途中的重要地点和历史事件详情</p>
+						<div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+					</div>
+					
+					<div class="bg-white rounded-xl shadow-xl overflow-hidden">
+						<div class="relative w-full h-[500px] md:h-[700px]" id="map-container">
+							<!-- 中国地图背景 -->
+							<div class="absolute inset-0 bg-[#F8F9FA]">
+								<img src="img/map.png" alt="中国地图背景" class="w-full h-full object-cover opacity-70">
+								
+								<!-- 长征路线
+								<svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+									<path d="M 1201 630 
+											C 1068 640 934 650 801 620 
+											C 726 574 651 528 576 481 
+											C 545 469 513 457 482 445
+											C 430 476 379 506 327 537 
+											C 308 534 288 532 269 529 
+											C 263 503 256 477 250 451 
+											C 275 423 300 395 325 367 
+											C 348 345 372 324 395 302 
+											C 414 265 432 227 451 189 
+											C 529 162 606 135 684 108 
+											C 717 88 749 69 782 49"
+										stroke="#C41E3A" stroke-width="5" fill="none" stroke-dasharray="10,5" 
+									/>
+								</svg>
+								-->
+								
+								<!-- 地图标记点 -->
+								<div class="map-marker absolute w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white" 
+									data-location="ruijin" style="top: 600px; left: 1188px;">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								
+								<div class="map-marker absolute w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white" 
+									data-location="zunyi" style="top: 510px; left: 570px;">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								
+								<div class="map-marker absolute w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white" 
+									data-location="jinsha" style="top: 580px; left: 290px;">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								
+								<div class="map-marker absolute w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white" 
+									data-location="luding" style="top: 470px; left: 320px;">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								
+								<div class="map-marker absolute w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white" 
+									data-location="snowmountain" style="top: 420px; left: 420px;">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								
+								<div class="map-marker absolute w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white" 
+									data-location="grassland" style="top: 310px; left: 400px;">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								
+								<div class="map-marker absolute w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white" 
+									data-location="wuqi" style="top: 60px; left: 770px;">
+									<i class="fa fa-map-marker"></i>
+								</div>
+							</div>
+							
+							<!-- 地图控制按钮 -->
+							<div class="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-2 flex flex-col space-y-2">
+								<button id="zoom-in" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded">
+									<i class="fa fa-plus"></i>
+								</button>
+								<button id="zoom-out" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded">
+									<i class="fa fa-minus"></i>
+								</button>
+								<button id="reset-map" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded">
+									<i class="fa fa-refresh"></i>
+								</button>
+							</div>
+						</div>
+						
+						<!-- 地点详情卡片 -->
+						<div id="location-details" class="p-6 border-t border-gray-100 bg-neutral text-white">
+							<div class="flex flex-col md:flex-row gap-6">
+								<div class="md:w-1/3">
+									<a id="location-link" target="_blank" href="#">
+										<img id="location-image" src="img/map-point-01.jpg" alt="长征地点图片" class="w-full h-64 object-cover rounded-lg">
+									</a>
+								</div>
+								<div class="md:w-2/3">
+									<h3 id="location-title" class="text-2xl font-bold mb-2">瑞金 - 长征出发地</h3>
+									<p id="location-date" class="text-secondary mb-4"><i class="fa fa-calendar mr-2"></i>1934年10月</p>
+									<div id="location-description">
+										<p class="mb-4">瑞金是中华苏维埃共和国临时中央政府所在地，1934年10月，中央红军主力被迫实行战略转移，从瑞金等地出发，开始长征。</p>
+										<p>中央红军主力五个军团及中央、军委机关和部队共8.6万余人，分别从瑞金地区出发，被迫实行战略性转移，从而开始进行红军打败国民党的转折点。</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<!-- 长征英雄人物 -->
+			<section id="heroes" class="py-20 bg-gray-50">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">长征英雄人物</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">铭记革命先烈，传承英雄精神</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+					
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+						<!-- 英雄人物卡片 1 -->
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+							<img src="img/maozedong.jpg" alt="毛泽东" class="w-full aspect-[3/4] object-cover">
+							<div class="p-6">
+								<h3 class="font-bold text-primary text-xl mb-2">毛泽东</h3>
+								<p class="text-neutral/70 text-sm mb-4">中央红军领导人</p>
+								<p class="text-neutral/70 mb-4">
+									在遵义会议上确立了在党和红军的领导地位，带领红军完成战略转移，为长征胜利作出决定性贡献。
+								</p>
+								<div class="flex items-center text-sm text-neutral/60">
+									<i class="fa fa-calendar mr-2"></i>
+									<span>1893-1976</span>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 英雄人物卡片 2 -->
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+							<img src="img/zhouenlai.jpg" alt="周恩来" class="w-full aspect-[3/4] object-cover">
+							<div class="p-6">
+								<h3 class="font-bold text-primary text-xl mb-2">周恩来</h3>
+								<p class="text-neutral/70 text-sm mb-4">中央革命军事委员会副主席</p>
+								<p class="text-neutral/70 mb-4">
+									协助毛泽东指挥红军作战，在遵义会议上支持毛泽东的正确主张，为确立毛泽东的领导地位发挥了重要作用。
+								</p>
+								<div class="flex items-center text-sm text-neutral/60">
+									<i class="fa fa-calendar mr-2"></i>
+									<span>1898-1976</span>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 英雄人物卡片 3 -->
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+							<img src="img/zhude.png" alt="朱德" class="w-full aspect-[3/4] object-cover">
+							<div class="p-6">
+								<h3 class="font-bold text-primary text-xl mb-2">朱德</h3>
+								<p class="text-neutral/70 text-sm mb-4">中国工农红军总司令</p>
+								<p class="text-neutral/70 mb-4">
+									率领红军主力转战南北，指挥了四渡赤水、巧渡金沙江等重要战役，为长征胜利建立了不朽功勋。
+								</p>
+								<div class="flex items-center text-sm text-neutral/60">
+									<i class="fa fa-calendar mr-2"></i>
+									<span>1886-1976</span>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 英雄人物卡片 4 -->
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+							<img src="img/hezijia.jpg" alt="贺子珍" class="w-full aspect-[3/4] object-cover">
+							<div class="p-6">
+								<h3 class="font-bold text-primary text-xl mb-2">朱德</h3>
+								<p class="text-neutral/70 text-sm mb-4">中央红军女战士</p>
+								<p class="text-neutral/70 mb-4">
+									贺子珍是长征中为数不多的女红军之一。在长征途中，她不仅照顾伤员，还积极参与战斗。在一次敌机轰炸中，她为掩护战友身负重伤，身上留下了十几块弹片。
+								</p>
+								<div class="flex items-center text-sm text-neutral/60">
+									<i class="fa fa-calendar mr-2"></i>
+									<span>1909-1984</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="text-center">
+						<a href="a.html" class="inline-block px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/50 hover:-translate-y-1">
+							查看更多英雄人物 <i class="fa fa-arrow-right ml-2"></i>
+						</a>
+					</div>
+				</div>
+			</section>
+			
+			<!-- 长征精神解读 -->
+			<section id="spirit" class="py-20 bg-neutral/5">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">长征精神解读</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">深化理论内涵，传承红色基因</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+					
+					<!-- 精神内涵 -->
+					<div class="mb-20">
+						<h3 class="text-2xl font-bold text-center mb-10">长征精神的核心内涵</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+							<!-- 内涵卡片 1 -->
+							<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+								<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+									<i class="fa fa-heart text-primary text-2xl"></i>
+								</div>
+								<h4 class="font-bold text-primary text-xl mb-3">坚定的理想信念</h4>
+								<p class="text-neutral/70">
+									长征途中，红军将士讲得最多的一句话是："只要跟党走，一定能胜利。" 崇高的理想，坚定的信念，永远是中国共产党人的政治灵魂。长征的胜利，是中国共产党人理想的胜利，是中国共产党人信念的胜利。
+								</p>
+							</div>
+							
+							<!-- 内涵卡片 2 -->
+							<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+								<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+									<i class="fa fa-users text-primary text-2xl"></i>
+								</div>
+								<h4 class="font-bold text-primary text-xl mb-3">顾全大局的集体主义精神</h4>
+								<p class="text-neutral/70">
+									长征途中，红军将士顾全大局、严守纪律、紧密团结。他们无论是在难以自拔的绝境中，还是在各种利益诱惑面前，都能从大局出发，以革命利益为重，以集体利益为重，甚至牺牲个人利益。
+								</p>
+							</div>
+							
+							<!-- 内涵卡片 3 -->
+							<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+								<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+									<i class="fa fa-shield text-primary text-2xl"></i>
+								</div>
+								<h4 class="font-bold text-primary text-xl mb-3">不怕牺牲、前赴后继的精神</h4>
+								<p class="text-neutral/70">
+									长征途中，红军将士面对的是一条条波涛汹涌的大河，一座座巍然耸立的雪山，一片片茫无涯际的草地，前有敌军，后有追兵，可就是在这 "敌军围困万千重" 的逆境中，红军转战两万五千里，终于从100万的敌人中杀出了一条生路。
+								</p>
+							</div>
+							
+							<!-- 内涵卡片 4 -->
+							<div class="bg-white p-8 rounded-xl shadow-lg hover-scale">
+								<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+									<i class="fa fa-handshake-o text-primary text-2xl"></i>
+								</div>
+								<h4 class="font-bold text-primary text-xl mb-3">紧密联系人民群众的精神</h4>
+								<p class="text-neutral/70">
+									长征是一部人民战争的史诗，是人民群众与人民军队鱼水深情的见证。长征路上，红军打土豪、分田地，帮助群众建立革命政权，处处关心群众、宣传群众、武装群众，赢得了人民群众的衷心拥护和支持。
+								</p>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 时代价值 -->
+					<div class="mb-20">
+						<h3 class="text-2xl font-bold text-center mb-10">长征精神的时代价值</h3>
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+							<div class="md:flex">
+								<div class="md:w-1/2 p-8">
+									<h4 class="font-bold text-primary text-xl mb-4">长征精神与高校党建</h4>
+									<p class="text-neutral/70 mb-6">
+										长征精神是中国共产党在革命斗争中形成的宝贵精神财富，对于高校党建工作具有重要的指导意义。高校作为培养社会主义建设者和接班人的重要阵地，必须坚持以长征精神为引领，加强党的建设，确保高校始终成为坚持党的领导的坚强阵地。
+									</p>
+									<ul class="space-y-3">
+										<li class="flex items-start">
+											<i class="fa fa-check-circle text-primary mt-1 mr-3"></i>
+											<span>用长征精神坚定师生理想信念，培养担当民族复兴大任的时代新人</span>
+										</li>
+										<li class="flex items-start">
+											<i class="fa fa-check-circle text-primary mt-1 mr-3"></i>
+											<span>用长征精神加强高校基层党组织建设，发挥党组织的战斗堡垒作用</span>
+										</li>
+										<li class="flex items-start">
+											<i class="fa fa-check-circle text-primary mt-1 mr-3"></i>
+											<span>用长征精神推进高校思想政治工作，落实立德树人根本任务</span>
+										</li>
+									</ul>
+								</div>
+								<div class="md:w-1/2 relative">
+									<img src="img/TheEraValueofLongMarchSpirit.png" alt="高校党建活动" class="w-full h-full object-cover">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 理论文章 -->
+					<h3 class="text-2xl font-bold text-center mb-10">专家解读文章</h3>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+						<!-- 文章卡片 1 -->
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+							<div class="h-1 bg-gradient-red"></div>
+							<div class="p-6">
+								<span class="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">理论研究</span>
+								<h4 class="font-bold text-xl mt-4 mb-3">长征精神与新时代青年的使命担当</h4>
+								<p class="text-neutral/70 text-sm mb-4">
+									本文从长征精神的内涵出发，探讨新时代青年如何传承和弘扬长征精神，勇担时代使命，为实现中华民族伟大复兴的中国梦贡献青春力量。
+								</p>
+								<div class="flex items-center justify-between">
+									<div class="flex items-center">
+										<img src="img/face-01.png" alt="作者头像" class="w-10 h-10 rounded-full">
+										<span class="ml-3 text-sm font-medium">张明教授</span>
+									</div>
+									<span class="text-xs text-neutral/50">2025-06-15</span>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 文章卡片 2 -->
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+							<div class="h-1 bg-gradient-red"></div>
+							<div class="p-6">
+								<span class="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">教育研究</span>
+								<h4 class="font-bold text-xl mt-4 mb-3">论长征精神在高校思想政治教育中的价值</h4>
+								<p class="text-neutral/70 text-sm mb-4">
+									本文分析了长征精神在高校思想政治教育中的重要价值，提出了将长征精神融入高校思想政治教育的有效途径和方法。
+								</p>
+								<div class="flex items-center justify-between">
+									<div class="flex items-center">
+										<img src="img/face-02.png" alt="作者头像" class="w-10 h-10 rounded-full">
+										<span class="ml-3 text-sm font-medium">李华副教授</span>
+									</div>
+									<span class="text-xs text-neutral/50">2025-05-28</span>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 文章卡片 3 -->
+						<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+							<div class="h-1 bg-gradient-red"></div>
+							<div class="p-6">
+								<span class="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">历史研究</span>
+								<h4 class="font-bold text-xl mt-4 mb-3">从长征精神看中国共产党的领导力</h4>
+								<p class="text-neutral/70 text-sm mb-4">
+									本文通过回顾长征历史，探讨了长征精神与中国共产党领导力的内在联系，揭示了中国共产党在长征中展现出的强大领导力。
+								</p>
+								<div class="flex items-center justify-between">
+									<div class="flex items-center">
+										<img src="img/face-03.png" alt="作者头像" class="w-10 h-10 rounded-full">
+										<span class="ml-3 text-sm font-medium">王建国教授</span>
+									</div>
+									<span class="text-xs text-neutral/50">2025-04-10</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 高校红色育人 -->
+			<section id="education" class="py-20 bg-white">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">高校红色育人</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">突出实践转化，培育时代新人</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+					
+					<!-- 特色活动 -->
+					<div class="mb-20">
+						<h3 class="text-2xl font-bold text-center mb-10">校内长征主题教育活动</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+							<!-- 活动卡片 1 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+								<img src="img/edu-01.png" alt="重走长征路" class="w-full h-60 object-cover">
+								<div class="p-6">
+									<div class="flex items-center mb-4">
+										<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+											<i class="fa fa-map-marker text-primary"></i>
+										</div>
+										<h4 class="font-bold text-primary text-xl">重走长征路</h4>
+									</div>
+									<p class="text-neutral/70 mb-4">
+										组织学生到遵义、会宁等红色基地开展实践研学活动，通过实地参观、现场教学、体验式学习等方式，让学生深刻感受长征精神的内涵和价值。
+									</p>
+									<div class="flex flex-wrap gap-2">
+										<span class="text-xs font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">实践活动</span>
+										<span class="text-xs font-semibold bg-neutral/10 text-neutral px-3 py-1 rounded-full">每年春季</span>
+										<span class="text-xs font-semibold bg-secondary/10 text-secondary px-3 py-1 rounded-full">马克思主义学院</span>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 活动卡片 2 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+								<img src="img/edu-02.png" alt="长征精神主题班会" class="w-full h-60 object-cover">
+								<div class="p-6">
+									<div class="flex items-center mb-4">
+										<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+											<i class="fa fa-users text-primary"></i>
+										</div>
+										<h4 class="font-bold text-primary text-xl">长征精神主题班会</h4>
+									</div>
+									<p class="text-neutral/70 mb-4">
+										以班级为单位开展长征精神主题班会，通过演讲、讨论、知识竞赛等形式，引导学生深入学习长征历史，传承长征精神。
+									</p>
+									<div class="flex flex-wrap gap-2">
+										<span class="text-xs font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">思想教育</span>
+										<span class="text-xs font-semibold bg-neutral/10 text-neutral px-3 py-1 rounded-full">每学期</span>
+										<span class="text-xs font-semibold bg-secondary/10 text-secondary px-3 py-1 rounded-full">各学院</span>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 活动卡片 3 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+								<img src="img/edu-03.png" alt="长征故事宣讲团" class="w-full h-60 object-cover">
+								<div class="p-6">
+									<div class="flex items-center mb-4">
+										<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+											<i class="fa fa-microphone text-primary"></i>
+										</div>
+										<h4 class="font-bold text-primary text-xl">长征故事宣讲团</h4>
+									</div>
+									<p class="text-neutral/70 mb-4">
+										选拔优秀学生组成宣讲团，深入班级、社区开展长征故事宣讲活动，用青年学生喜闻乐见的方式传播长征精神。
+									</p>
+									<div class="flex flex-wrap gap-2">
+										<span class="text-xs font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">文化传播</span>
+										<span class="text-xs font-semibold bg-neutral/10 text-neutral px-3 py-1 rounded-full">常年开展</span>
+										<span class="text-xs font-semibold bg-secondary/10 text-secondary px-3 py-1 rounded-full">校团委</span>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 活动卡片 4 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+								<img src="img/edu-04.png" alt="长征精神辩论赛" class="w-full h-60 object-cover">
+								<div class="p-6">
+									<div class="flex items-center mb-4">
+										<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+											<i class="fa fa-comments text-primary"></i>
+										</div>
+										<h4 class="font-bold text-primary text-xl">长征精神辩论赛</h4>
+									</div>
+									<p class="text-neutral/70 mb-4">
+										举办以长征精神为主题的辩论赛，引导学生深入思考长征精神的时代价值，激发学生的爱国热情和社会责任感。
+									</p>
+									<div class="flex flex-wrap gap-2">
+										<span class="text-xs font-semibold bg-primary/10 text-primary px-3 py-1 rounded-full">学术活动</span>
+										<span class="text-xs font-semibold bg-neutral/10 text-neutral px-3 py-1 rounded-full">每年秋季</span>
+										<span class="text-xs font-semibold bg-secondary/10 text-secondary px-3 py-1 rounded-full">文学院</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 师生感悟 -->
+					<div class="mb-20">
+						<h3 class="text-2xl font-bold text-center mb-10">师生感悟与实践成果</h3>
+						<div class="relative">
+							<div class="overflow-hidden">
+								<div class="flex space-x-6" id="testimonialsSlider">
+									<!-- 感悟卡片 1 -->
+									<div class="min-w-[300px] md:min-w-[380px] bg-white p-6 rounded-xl shadow-lg hover-scale">
+										<div class="flex items-center mb-4">
+											<img src="img/face-04.png" alt="学生头像" class="w-12 h-12 rounded-full mr-4">
+											<div>
+												<h4 class="font-bold text-primary">李明</h4>
+												<p class="text-sm text-neutral/60">计算机科学与技术学院 2023级</p>
+											</div>
+										</div>
+										<p class="text-neutral/70 italic">
+											"参加'重走长征路'实践活动后，我对长征精神有了更深刻的理解。在面对科研难题时，我总会想起红军战士们在长征途中克服的艰难险阻，这给了我坚持下去的勇气和力量。"
+										</p>
+										<div class="mt-4 text-primary">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+									</div>
+									
+									<!-- 感悟卡片 2 -->
+									<div class="min-w-[300px] md:min-w-[380px] bg-white p-6 rounded-xl shadow-lg hover-scale">
+										<div class="flex items-center mb-4">
+											<img src="img/face-05.png" alt="学生头像" class="w-12 h-12 rounded-full mr-4">
+											<div>
+												<h4 class="font-bold text-primary">王芳</h4>
+												<p class="text-sm text-neutral/60">马克思主义学院 2022级</p>
+											</div>
+										</div>
+										<p class="text-neutral/70 italic">
+											"作为长征故事宣讲团的一员，我在准备宣讲内容的过程中，被红军战士们的英勇事迹深深打动。通过宣讲，我不仅锻炼了自己的表达能力，更重要的是，我能够将长征精神传递给更多的人。"
+										</p>
+										<div class="mt-4 text-primary">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-half-o"></i>
+										</div>
+									</div>
+									
+									<!-- 感悟卡片 3 -->
+									<div class="min-w-[300px] md:min-w-[380px] bg-white p-6 rounded-xl shadow-lg hover-scale">
+										<div class="flex items-center mb-4">
+											<img src="img/face-06.png" alt="教师头像" class="w-12 h-12 rounded-full mr-4">
+											<div>
+												<h4 class="font-bold text-primary">张教授</h4>
+												<p class="text-sm text-neutral/60">马克思主义学院副教授</p>
+											</div>
+										</div>
+										<p class="text-neutral/70 italic">
+											"在思政课教学中融入长征精神，能够让学生更加直观地感受到中国共产党的奋斗历程和伟大精神。通过案例分析、小组讨论等教学方法，学生们的参与度明显提高，对课程内容的理解也更加深入。"
+										</p>
+										<div class="mt-4 text-primary">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+									</div>
+									
+									<!-- 感悟卡片 4 -->
+									<div class="min-w-[300px] md:min-w-[380px] bg-white p-6 rounded-xl shadow-lg hover-scale">
+										<div class="flex items-center mb-4">
+											<img src="img/face-07.png" alt="教师头像" class="w-12 h-12 rounded-full mr-4">
+											<div>
+												<h4 class="font-bold text-primary">刘教授</h4>
+												<p class="text-sm text-neutral/60">材料科学与工程学院教授</p>
+											</div>
+										</div>
+										<p class="text-neutral/70 italic">
+											"我们团队在研发新型材料的过程中遇到了很多困难，我经常用长征精神鼓励团队成员。长征精神教会我们，只要有坚定的信念和不屈不挠的精神，就没有克服不了的困难。最终，我们的研究取得了重要突破。"
+										</p>
+										<div class="mt-4 text-primary">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 轮播控制按钮 -->
+							<button class="absolute top-1/2 left-0 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary z-10" id="prevBtn">
+								<i class="fa fa-angle-left"></i>
+							</button>
+							<button class="absolute top-1/2 right-0 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-primary z-10" id="nextBtn">
+								<i class="fa fa-angle-right"></i>
+							</button>
+						</div>
+					</div>
+					
+					<!-- 成果统计 -->
+					<h3 class="text-2xl font-bold text-center mb-10">育人成果统计</h3>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<div class="bg-white p-6 rounded-xl shadow-lg">
+							<h4 class="font-bold text-primary text-xl mb-4">参与红色教育活动学生人数</h4>
+							<div class="h-80">
+								<canvas id="activityChart"></canvas>
+							</div>
+						</div>
+						
+						<div class="bg-white p-6 rounded-xl shadow-lg">
+							<h4 class="font-bold text-primary text-xl mb-4">红色教育成果分类</h4>
+							<div class="h-80">
+								<canvas id="achievementChart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- 资源库与互动 -->
+			<section id="resources" class="py-20 bg-neutral/5">
+				<div class="container mx-auto px-4">
+					<div class="text-center mb-16">
+						<h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-primary mb-4">资源库与互动</h2>
+						<p class="text-lg text-neutral/80 max-w-3xl mx-auto">增强传播效果，促进学习交流</p>
+						<div class="w-20 h-1 bg-secondary mx-auto mt-6"></div>
+					</div>
+					
+					<!-- 资源库 -->
+					<div class="mb-20">
+						<h3 class="text-2xl font-bold text-center mb-10">权威资源库</h3>
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+							<!-- 资源卡片 1 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+								<div class="p-6 border-b border-neutral/10">
+									<div class="flex items-center">
+										<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+											<i class="fa fa-book text-primary text-xl"></i>
+										</div>
+										<h4 class="font-bold text-primary text-xl">史料文献</h4>
+									</div>
+								</div>
+								<div class="p-6">
+									<ul class="space-y-3">
+										<li class="flex items-center">
+											<i class="fa fa-file-pdf-o text-primary mr-3"></i>
+											<span>《红军长征记》原文</span>
+										</li>
+										<li class="flex items-center">
+											<i class="fa fa-file-pdf-o text-primary mr-3"></i>
+											<span>《红星照耀中国》</span>
+										</li>
+										<li class="flex items-center">
+											<i class="fa fa-file-pdf-o text-primary mr-3"></i>
+											<span>《长征行》</span>
+										</li>
+										<li class="flex items-center">
+											<i class="fa fa-file-pdf-o text-primary mr-3"></i>
+											<span>《伟大的长征》</span>
+										</li>
+										<li class="flex items-center">
+											<i class="fa fa-file-pdf-o text-primary mr-3"></i>
+											<span>《长征中的重大战略决策》</span>
+										</li>
+									</ul>
+									<a href="#" class="mt-6 inline-block px-6 py-2 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary/20 transition-colors">
+										查看全部资源 <i class="fa fa-arrow-right ml-2"></i>
+									</a>
+								</div>
+							</div>
+							
+							<!-- 资源卡片 2 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+								<div class="p-6 border-b border-neutral/10">
+									<div class="flex items-center">
+										<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+											<i class="fa fa-image text-primary text-xl"></i>
+										</div>
+										<h4 class="font-bold text-primary text-xl">历史图片</h4>
+									</div>
+								</div>
+								<div class="p-6">
+									<div class="grid grid-cols-2 gap-3 mb-4">
+										<img src="img/time-line-01.jpg" alt="历史照片" class="rounded-lg hover-scale">
+										<img src="img/time-line-03.jpg" alt="历史照片" class="rounded-lg hover-scale">
+										<img src="img/time-line-05.jpg" alt="历史照片" class="rounded-lg hover-scale">
+										<img src="img/time-line-07.jpg" alt="历史照片" class="rounded-lg hover-scale">
+									</div>
+									<a href="#" class="mt-2 inline-block px-6 py-2 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary/20 transition-colors">
+										查看全部图片 <i class="fa fa-arrow-right ml-2"></i>
+									</a>
+								</div>
+							</div>
+							
+							<!-- 资源卡片 3 -->
+							<div class="bg-white rounded-xl shadow-lg overflow-hidden hover-scale">
+								<div class="p-6 border-b border-neutral/10">
+									<div class="flex items-center">
+										<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+											<i class="fa fa-film text-primary text-xl"></i>
+										</div>
+										<h4 class="font-bold text-primary text-xl">教育视频</h4>
+									</div>
+								</div>
+								<div class="p-6">
+									<div class="space-y-4">
+										<div class="bg-neutral/5 rounded-lg p-3 flex items-center">
+											<div class="w-16 h-12 bg-primary/20 rounded flex items-center justify-center mr-3">
+												<i class="fa fa-play text-primary"></i>
+											</div>
+											<div>
+												<h5 class="font-medium">《长征》纪录片</h5>
+												<p class="text-xs text-neutral/60">52:30 | 中央电视台</p>
+											</div>
+										</div>
+										
+										<div class="bg-neutral/5 rounded-lg p-3 flex items-center">
+											<div class="w-16 h-12 bg-primary/20 rounded flex items-center justify-center mr-3">
+												<i class="fa fa-play text-primary"></i>
+											</div>
+											<div>
+												<h5 class="font-medium">《红星照耀中国》</h5>
+												<p class="text-xs text-neutral/60">48:15 | 国家博物馆</p>
+											</div>
+										</div>
+										
+										<div class="bg-neutral/5 rounded-lg p-3 flex items-center">
+											<div class="w-16 h-12 bg-primary/20 rounded flex items-center justify-center mr-3">
+												<i class="fa fa-play text-primary"></i>
+											</div>
+											<div>
+												<h5 class="font-medium">《长征精神代代传》</h5>
+												<p class="text-xs text-neutral/60">32:40 | 我校制作</p>
+											</div>
+										</div>
+									</div>
+									<a href="#" class="mt-6 inline-block px-6 py-2 bg-primary/10 text-primary rounded-full font-semibold hover:bg-primary/20 transition-colors">
+										查看全部视频 <i class="fa fa-arrow-right ml-2"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 互动交流区 -->
+					<div class="mb-20">
+						<h3 class="text-2xl font-bold text-center mb-10">互动交流区</h3>
+						
+						<!-- 在线问答 -->
+						<div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+							<h4 class="font-bold text-primary text-xl mb-6">长征知识小课堂</h4>
+							<div class="space-y-6">
+								<!-- 问题 1 -->
+								<div class="border-b border-neutral/10 pb-6">
+									<div class="flex items-start">
+										<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 mt-1">
+											<i class="fa fa-question text-primary"></i>
+										</div>
+										<div>
+											<h5 class="font-medium text-lg">长征中红军如何解决粮食问题？</h5>
+											<p class="text-sm text-neutral/60 mt-1">提问者：匿名用户 | 2025-07-15</p>
+										</div>
+									</div>
+									
+									<div class="ml-14 mt-4 bg-neutral/5 p-4 rounded-lg">
+										<div class="flex items-start">
+											<div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center mr-3 mt-1">
+												<i class="fa fa-graduation-cap text-secondary"></i>
+											</div>
+											<div>
+												<p class="text-neutral/80">
+													长征途中，红军解决粮食问题的途径主要有：一是没收地主豪绅的粮食；二是购买当地群众的粮食；三是寻找野菜、野果等可食用植物；四是宰杀牲畜；五是向当地群众征集粮食。此外，红军还严格执行"三大纪律八项注意"，不拿群众一针一线，赢得了群众的支持和拥护，群众主动为红军送粮送菜，帮助红军解决了不少困难。
+												</p>
+												<p class="text-sm text-neutral/60 mt-2">回答者：张教授 | 马克思主义学院</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 问题 2 -->
+								<div class="border-b border-neutral/10 pb-6">
+									<div class="flex items-start">
+										<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 mt-1">
+											<i class="fa fa-question text-primary"></i>
+										</div>
+										<div>
+											<h5 class="font-medium text-lg">长征精神与新时代大学生成长有什么关系？</h5>
+											<p class="text-sm text-neutral/60 mt-1">提问者：李同学 | 计算机学院</p>
+										</div>
+									</div>
+									
+									<div class="ml-14 mt-4 bg-neutral/5 p-4 rounded-lg">
+										<div class="flex items-start">
+											<div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center mr-3 mt-1">
+												<i class="fa fa-user text-secondary"></i>
+											</div>
+											<div>
+												<p class="text-neutral/80">
+													长征精神是中国共产党在革命斗争中形成的宝贵精神财富，它体现了坚定的理想信念、不怕牺牲、前赴后继的精神、勇往直前、坚韧不拔的精神、众志成城、团结互助的精神和百折不挠、克服困难的精神。这些精神对于新时代大学生的成长具有重要的启示和指导作用。大学生可以从长征精神中汲取力量，坚定理想信念，培养顽强的意志品质，增强团队合作意识，树立正确的世界观、人生观和价值观，努力成长为有理想、有本领、有担当的时代新人。
+												</p>
+												<p class="text-sm text-neutral/60 mt-2">回答者：王同学 | 马克思主义学院</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 提问表单 -->
+								<div class="bg-primary/5 p-6 rounded-lg">
+									<h5 class="font-bold text-primary mb-4">我要提问</h5>
+									<form>
+										<div class="mb-4">
+											<label for="question" class="block text-sm font-medium text-neutral mb-2">您的问题</label>
+											<textarea id="question" rows="3" class="w-full px-4 py-2 border border-neutral/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入您关于长征的问题..."></textarea>
+										</div>
+										<div class="flex justify-end">
+											<button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+												提交问题
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 主题征集 -->
+						<div class="bg-white rounded-xl shadow-lg p-8">
+							<h4 class="font-bold text-primary text-xl mb-6">"长征精神在身边"作品征集</h4>
+							<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+								<!-- 作品 1 -->
+								<div class="bg-neutral/5 rounded-lg overflow-hidden hover-scale">
+									<img src="img/长征精神照亮我的科研之路.png" alt="征文作品" class="w-full h-48 object-cover">
+									<div class="p-4">
+										<h5 class="font-medium">《长征精神照亮我的科研之路》</h5>
+										<p class="text-xs text-neutral/60 mt-1">作者：陈同学 | 材料学院</p>
+										<div class="flex items-center mt-3">
+											<span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">征文</span>
+											<div class="ml-auto flex items-center">
+												<i class="fa fa-heart text-primary mr-1"></i>
+												<span class="text-xs">24</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 作品 2 -->
+								<div class="bg-neutral/5 rounded-lg overflow-hidden hover-scale">
+									<img src="img/长征路上.png" alt="绘画作品" class="w-full h-48 object-cover">
+									<div class="p-4">
+										<h5 class="font-medium">《长征路上》</h5>
+										<p class="text-xs text-neutral/60 mt-1">作者：林同学 | 艺术学院</p>
+										<div class="flex items-center mt-3">
+											<span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">绘画</span>
+											<div class="ml-auto flex items-center">
+												<i class="fa fa-heart text-primary mr-1"></i>
+												<span class="text-xs">36</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 作品 3 -->
+								<div class="bg-neutral/5 rounded-lg overflow-hidden hover-scale">
+									<img src="img/传承长征精神，争做时代新人.png" alt="短视频作品" class="w-full h-48 object-cover">
+									<div class="p-4">
+										<h5 class="font-medium">《传承长征精神，争做时代新人》</h5>
+										<p class="text-xs text-neutral/60 mt-1">作者：赵同学 | 新传学院</p>
+										<div class="flex items-center mt-3">
+											<span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">短视频</span>
+											<div class="ml-auto flex items-center">
+												<i class="fa fa-heart text-primary mr-1"></i>
+												<span class="text-xs">42</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="text-center">
+								<a href="#" class="inline-block px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+									查看全部作品
+								</a>
+								<a href="#" class="inline-block px-8 py-3 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors ml-4">
+									我要投稿
+								</a>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 留言板 -->
+					<div>
+						<h3 class="text-2xl font-bold text-center mb-10">留言板</h3>
+						<div class="bg-white rounded-xl shadow-lg p-8">
+							<div class="space-y-6 mb-8">
+								<!-- 留言 1 -->
+								<div class="border-b border-neutral/10 pb-6">
+									<div class="flex items-start">
+										<img src="img/face-08.png" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+										<div>
+											<div class="flex items-center">
+												<h5 class="font-medium">张同学</h5>
+												<span class="text-xs text-neutral/60 ml-3">2025-07-22</span>
+											</div>
+											<p class="text-neutral/80 mt-2">
+												网站内容非常丰富，通过学习长征历史，我更加深刻地认识到了长征精神的内涵和价值。在今后的学习和生活中，我将以长征精神为指引，努力克服困难，为实现中华民族伟大复兴的中国梦贡献自己的一份力量。
+											</p>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 留言 2 -->
+								<div class="border-b border-neutral/10 pb-6">
+									<div class="flex items-start">
+										<img src="img/face-09.png" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+										<div>
+											<div class="flex items-center">
+												<h5 class="font-medium">李老师</h5>
+												<span class="text-xs text-neutral/60 ml-3">2025-07-20</span>
+											</div>
+											<p class="text-neutral/80 mt-2">
+												作为一名高校教师，我认为这个网站为我们开展红色教育提供了非常好的资源和平台。网站中的史料文献、教育视频等内容非常丰富，而且具有很强的权威性和可读性。我将推荐给我的学生们，让他们也能从中受益。
+											</p>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 留言 3 -->
+								<div>
+									<div class="flex items-start">
+										<img src="img/face-10.png" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+										<div>
+											<div class="flex items-center">
+												<h5 class="font-medium">王同学</h5>
+												<span class="text-xs text-neutral/60 ml-3">2025-07-18</span>
+											</div>
+											<p class="text-neutral/80 mt-2">
+												参加了学校组织的"重走长征路"实践活动后，我来到这个网站进一步学习长征历史。网站中的互动交流区非常好，我在这里提出了一些关于长征的问题，得到了老师和同学们的热情解答。希望网站能够继续保持更新，为我们提供更多的学习资源。
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 留言表单 -->
+							<div class="bg-primary/5 p-6 rounded-lg">
+								<h5 class="font-bold text-primary mb-4">我要留言</h5>
+								<form>
+									<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+										<div>
+											<label for="name" class="block text-sm font-medium text-neutral mb-2">姓名</label>
+											<input type="text" id="name" class="w-full px-4 py-2 border border-neutral/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入您的姓名">
+										</div>
+										<div>
+											<label for="email" class="block text-sm font-medium text-neutral mb-2">邮箱</label>
+											<input type="email" id="email" class="w-full px-4 py-2 border border-neutral/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入您的邮箱">
+										</div>
+									</div>
+									<div class="mb-4">
+										<label for="message" class="block text-sm font-medium text-neutral mb-2">留言内容</label>
+										<textarea id="message" rows="4" class="w-full px-4 py-2 border border-neutral/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="请输入您的留言内容..."></textarea>
+									</div>
+									<div class="flex justify-end">
+										<button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+											提交留言
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- 页脚 -->
+		<footer class="bg-dark text-white pt-16 pb-8">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+					<!-- 关于我们 -->
+					<div id="about">
+						<h4 class="text-xl font-bold mb-6 flex items-center">
+							<i class="fa fa-bookmark text-secondary mr-2"></i>长征精神永放光芒
+						</h4>
+						<p class="text-white/70 mb-6">
+							本网站由
+							<a href="https://www.wczy.edu.cn" class="text-white/70 hover:text-secondary transition-colors">武昌职业学院</a>
+							主办，
+							<a href="https://www.wczy.edu.cn/gljg/jxjg.htm" class="text-white/70 hover:text-secondary transition-colors">计算机学院</a>
+							协办，旨在传承和弘扬长征精神，加强我校党建和思想政治工作，培养德智体美劳全面发展的社会主义建设者和接班人。
+						</p>
+						<p class="text-white/70 mb-6">
+							设计/编码：24级软件技术1班，胡孜恒、苏永浩、栾靖沅
+							<br />
+							指导老师：田甜、时芳芳
+						</p>
+						<div class="flex space-x-4">
+							<a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+								<i class="fa fa-weixin"></i>
+							</a>
+							<a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+								<i class="fa fa-weibo"></i>
+							</a>
+							<a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+								<i class="fa fa-youtube-play"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- 快速链接 -->
+					<div>
+						<h4 class="text-lg font-bold mb-6">快速链接</h4>
+						<ul class="space-y-3">
+							<li><a href="#history" class="text-white/70 hover:text-secondary transition-colors">长征历史全景</a></li>
+							<li><a href="#spirit" class="text-white/70 hover:text-secondary transition-colors">长征精神解读</a></li>
+							<li><a href="#education" class="text-white/70 hover:text-secondary transition-colors">高校红色育人</a></li>
+							<li><a href="#resources" class="text-white/70 hover:text-secondary transition-colors">资源库与互动</a></li>
+							<li><a href="#" class="text-white/70 hover:text-secondary transition-colors">党史学习教育</a></li>
+							<li><a href="#" class="text-white/70 hover:text-secondary transition-colors">高校党建</a></li>
+						</ul>
+					</div>
+
+					<!-- 联系方式 -->
+					<div>
+						<h4 class="text-lg font-bold mb-6">联系方式</h4>
+						<ul class="space-y-3">
+							<li class="flex items-start">
+								<i class="fa fa-map-marker text-secondary mt-1 mr-3"></i>
+								<span class="text-white/70">湖北省武汉市江夏经济开发区藏龙岛办事处中洲大道98号</span>
+							</li>
+							<li class="flex items-start">
+								<i class="fa fa-phone text-secondary mt-1 mr-3"></i>
+								<span class="text-white/70">027-81335020</span>
+							</li>
+							<li class="flex items-start">
+								<i class="fa fa-envelope text-secondary mt-1 mr-3"></i>
+								<span class="text-white/70"><a href="mailto:longmarch@wczy.edu.cn">longmarch@wczy.edu.cn</a></span>
+							</li>
+							<li class="flex items-start">
+								<i class="fa fa-clock-o text-secondary mt-1 mr-3"></i>
+								<span class="text-white/70">周一至周五 08:00-18:00</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- 订阅 -->
+					<div>
+						<h4 class="text-lg font-bold mb-6">订阅最新资讯</h4>
+						<p class="text-white/70 mb-4">
+							订阅我们的电子邮件，获取最新的长征研究成果和高校红色教育活动信息。
+						</p>
+						<form>
+							<div class="flex">
+								<input type="email" placeholder="您的邮箱地址" class="flex-1 px-4 py-2 rounded-l-lg focus:outline-none text-neutral">
+								<button type="submit" class="bg-primary text-white px-4 py-2 rounded-r-lg hover:bg-primary/90 transition-colors">
+									订阅
+							   
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class="border-t border-white/10 pt-8">
+					<div class="flex flex-col md:flex-row justify-between items-center">
+						<p class="text-white/50 text-sm mb-4 md:mb-0">
+							长征精神永放光芒 - 高校主题教育网站
+						</p>
+						<div class="text-white/50 text-sm mb-4 md:mb-0 flex space-x-6">
+							<p>&copy; Copyright by <a href="https://www.wczy.edu.cn" class="text-white/70 hover:text-secondary transition-colors">武昌职业学院</a>，2025</p>
+							<p>保留所有权利</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- 返回顶部按钮 -->
+		<button id="backToTop" class="fixed bottom-6 right-6 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+			<i class="fa fa-arrow-up"></i>
+		</button>
+
+		<script src="js/index.js"></script>
+	</body>
+</html>
